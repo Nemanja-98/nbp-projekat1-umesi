@@ -13,10 +13,12 @@ namespace UmesiServer.Data.RecipeRepository
     public class RecipeRepository : IRecipeRepository
     {
         private ConnectionMultiplexer _redis;
+        private UnitOfWork _unitOfWork;
 
-        public RecipeRepository(ConnectionMultiplexer redis)
+        public RecipeRepository(ConnectionMultiplexer redis, UnitOfWork unit)
         {
             _redis = redis;
+            _unitOfWork = unit;
         }
 
         public async Task<Recipe> GetRecipe(int id)
@@ -41,13 +43,14 @@ namespace UmesiServer.Data.RecipeRepository
             return recipes;
         }
 
-        public async Task AddRecipe(string username, Recipe recipe)
+        public async Task AddRecipe(Recipe recipe)
         {
             if (recipe == null)
                 throw new HttpResponseException(400, "Recipe is null");
             IDatabase db = _redis.GetDatabase();
+            recipe.Id = await _unitOfWork.IdGenerator.GetRecipeId();
             string jsonRecipe = JsonSerializer.Serialize<Recipe>(recipe);
-            string jsonUser = await db.StringGetAsync(username);
+            string jsonUser = await db.StringGetAsync(recipe.UserRef);
             if (string.IsNullOrEmpty(jsonUser))
                 throw new HttpResponseException(404, "User with given username does not exist.");
             await db.ListLeftPushAsync(ListConsts.RecipeListKey, jsonRecipe);

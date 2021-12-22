@@ -30,6 +30,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("UmesiPolicy");
+
 app.UseAuthorization();
 
 app.MapControllers();

@@ -27,18 +27,22 @@ namespace UmesiServer.Data.UserRepository
             {
                 throw new HttpResponseException(404, "User does not exist");
             }
-            return JsonSerializer.Deserialize<User>(jsonUser);
+            User user = JsonSerializer.Deserialize<User>(jsonUser);
+            user.CreatedRecipes = (await db.ListRangeAsync(user.CreatedRecipesKey)).Select(r => JsonSerializer.Deserialize<Recipe>(r.ToString())).ToList();
+            user.FavoriteRecipes = (await db.ListRangeAsync(user.FavoriteRecipesKey)).Select(r => JsonSerializer.Deserialize<Recipe>(r.ToString())).ToList();
+            return user;
         }
 
         public async Task<List<User>> GetAllUsers()
         {
             IDatabase db = _redis.GetDatabase();
             List<RedisValue> redisUsers = (await db.ListRangeAsync(ListConsts.UserListKey)).ToList();
-
+            
             List<User> users = new List<User>();
             if (redisUsers.Count == 0)
                 return users;
-            users = redisUsers.Select(u => JsonSerializer.Deserialize<User>(u.ToString())).ToList();
+            foreach (RedisValue redisUser in redisUsers)
+                users.Add(JsonSerializer.Deserialize<User>(await db.StringGetAsync(redisUser.ToString())));
             return users;
         }
 
@@ -54,7 +58,7 @@ namespace UmesiServer.Data.UserRepository
             }
             string jsonUser = JsonSerializer.Serialize<User>(user);
             await db.StringSetAsync(user.Username, jsonUser);
-            await db.ListRightPushAsync(ListConsts.UserListKey, jsonUser);
+            await db.ListRightPushAsync(ListConsts.UserListKey, user.Username);
         }
 
         public Task UpdateUser(User user)

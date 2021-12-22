@@ -10,7 +10,7 @@ namespace UmesiServer.Data.RecipeRepository
     {
         Task<Recipe> GetRecipe(int id);
         Task<List<Recipe>> GetAllRecipes();
-        Task AddRecipe(string username, Recipe recipe);
+        Task AddRecipe(Recipe recipe);
         Task UpdateRecipe(string username, Recipe recipe);
         Task DeleteRecipe(int id);
     }

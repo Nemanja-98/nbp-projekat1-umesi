@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj": {}
+    "c:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj": {}
   },
   "projects": {
-    "C:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj": {
+    "c:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj",
+        "projectUniqueName": "c:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj",
         "projectName": "UmesiServer",
-        "projectPath": "C:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj",
+        "projectPath": "c:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj",
         "packagesPath": "C:\\Users\\Luka\\.nuget\\packages\\",
-        "outputPath": "C:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\obj\\",
+        "outputPath": "c:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Luka\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -3,7 +3,7 @@ using UmesiServer.Data;
 using UmesiServer.Exceptions;
 using UmesiServer.Models;
 
-namespace UmesiServer.Constants
+namespace UmesiServer.Controllers
 {
     public class RecipeController : Controller
     {
@@ -44,12 +44,12 @@ namespace UmesiServer.Constants
             }
         }
 
-        [HttpPost("AddRecipe/{username}")]
-        public async Task<ActionResult> PostRecipe([FromRoute]string username, Recipe recipe)
+        [HttpPost("AddRecipe")]
+        public async Task<ActionResult> PostRecipe(Recipe recipe)
         {
             try
             {
-                await _unitOfWork.RecipeRepository.AddRecipe(username, recipe);
+                await _unitOfWork.RecipeRepository.AddRecipe(recipe);
                 return Ok("Recipe added");
             }
             catch (HttpResponseException ex)
