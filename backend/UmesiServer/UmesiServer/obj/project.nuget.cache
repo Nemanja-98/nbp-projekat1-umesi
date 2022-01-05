@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FIEDrL2LaGJGlj31qdnoqhp0QaG/VnYQ7lJqh5YSnn78liCqponxqky4f9Sx7ojxmrpdV+fL69m3Whkp49HZsQ==",
+  "dgSpecHash": "GaUOiTrK3jtHtg4Mrabb1sNoR4r0hM60qqb9U9V3f3sWoq1uXGNRlPmL37jZR6lsSGfIRXMRbqRwbguSh+iR9Q==",
   "success": true,
-  "projectFilePath": "c:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj",
+  "projectFilePath": "C:\\-4thGrade-\\NBP\\nbp-projekat1-umesi\\backend\\UmesiServer\\UmesiServer\\UmesiServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Luka\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Luka\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",

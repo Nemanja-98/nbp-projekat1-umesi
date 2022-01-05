@@ -8,6 +8,7 @@ using UmesiServer.Data.RecipeRepository;
 using UmesiServer.Data.CommentRepository;
 using UmesiServer.Constants;
 using UmesiServer.Data.IdGeneratorRepository;
+using UmesiServer.Data.AuthManager;
 
 namespace UmesiServer.Data
 {
@@ -34,25 +35,31 @@ namespace UmesiServer.Data
         private IRecipeRepository _recipeRepo;
         private ICommentRepository _commentRepo;
         private IIdGeneratorRepository _idGenRepo;
+        private IAuthManager _authManager;
 
         public IUserRepository UserRepository 
         { 
-            get => (_userRepo != null) ? _userRepo : (_userRepo = new UserRepository.UserRepository(_redis)); 
+            get => _userRepo ??= new UserRepository.UserRepository(_redis);
         }
 
         public IRecipeRepository RecipeRepository
         {
-            get => (_recipeRepo != null) ? _recipeRepo : (_recipeRepo = new RecipeRepository.RecipeRepository(_redis, this));
+            get => _recipeRepo ??= new RecipeRepository.RecipeRepository(_redis, this);
         }
         
         public ICommentRepository CommentRepository
         {
-            get => (_commentRepo != null) ? _commentRepo : (_commentRepo = new CommentRepository.CommentRepository(_redis));
+            get => _commentRepo ??= new CommentRepository.CommentRepository(_redis);
         }
 
         public IIdGeneratorRepository IdGenerator
         {
-            get => (_idGenRepo != null) ? _idGenRepo : (_idGenRepo = new IdGeneratorRepository.IdGeneratorRepository(_redis));
+            get => _idGenRepo ??= new IdGeneratorRepository.IdGeneratorRepository(_redis);
+        }
+
+        public IAuthManager AuthManager
+        {
+            get => _authManager ??= new AuthManager.AuthManager(_redis);
         }
     }
 }

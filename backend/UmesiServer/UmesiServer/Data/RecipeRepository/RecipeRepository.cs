@@ -24,12 +24,14 @@ namespace UmesiServer.Data.RecipeRepository
         public async Task<Recipe> GetRecipe(int id)
         {
             if (id < 0)
-                throw new HttpResponseException(400, "Index out of bounds");
+                throw new HttpResponseException(400, "Identifier out of bounds");
             IDatabase db = _redis.GetDatabase();
-            string jsonRecipe = await db.ListGetByIndexAsync(ListConsts.RecipeListKey, id);
-            if (string.IsNullOrEmpty(jsonRecipe))
+            Recipe recipe = (await db.ListRangeAsync(ListConsts.RecipeListKey)).ToList().Select(r => JsonSerializer.Deserialize<Recipe>(r)).Where(r => r.Id == id).FirstOrDefault();
+            if (recipe == null)
                 throw new HttpResponseException(404, "Recipe does not exist");
-            return JsonSerializer.Deserialize<Recipe>(jsonRecipe);
+            List<RedisValue> redisComments = (await db.ListRangeAsync(recipe.CommentListKey)).ToList();
+            recipe.Comments = redisComments.Select(c => JsonSerializer.Deserialize<Comment>(c.ToString())).ToList();
+            return recipe;
         }
 
         public async Task<List<Recipe>> GetAllRecipes()

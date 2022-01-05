@@ -1,4 +1,6 @@
 using UmesiServer.Data;
+using UmesiServer.Middleware;
+using UmesiServer.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,7 @@ builder.Services.AddCors(options =>
     });
 });
 builder.Services.AddSingleton<UnitOfWork>();
+Settings.EncryptKey = builder.Configuration["EncryptionSecretKey"];
 
 var app = builder.Build();
 
@@ -33,6 +36,8 @@ app.UseHttpsRedirection();
 app.UseCors("UmesiPolicy");
 
 app.UseAuthorization();
+
+app.UseMiddleware<AuthMiddleware>();
 
 app.MapControllers();
 

@@ -5,6 +5,7 @@ using UmesiServer.Models;
 
 namespace UmesiServer.Controllers
 {
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private ILogger<UserController> _logger;
