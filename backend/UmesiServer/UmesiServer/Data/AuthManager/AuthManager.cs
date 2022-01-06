@@ -31,9 +31,10 @@ namespace UmesiServer.Data.AuthManager
             try
             {
                 IDatabase db = _redis.GetDatabase();
-                User user = JsonSerializer.Deserialize<User>((await db.StringGetAsync(creds.Username)).ToString());
-                if (user == null)
+                string redisUser = (await db.StringGetAsync(creds.Username)).ToString();
+                if (string.IsNullOrEmpty(redisUser))
                     throw new HttpResponseException(404, "User not found");
+                User user = JsonSerializer.Deserialize<User>(redisUser);
                 if (user.Password != creds.Password)
                     throw new HttpResponseException(401, "Passwords do not match");
                 token = Convert.ToBase64String(MakeRedisValue(encryptStringBuilder(user)));

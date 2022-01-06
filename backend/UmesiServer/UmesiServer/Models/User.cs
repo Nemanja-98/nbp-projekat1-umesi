@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using UmesiServer.DTOs.Records;
 
 namespace UmesiServer.Models
 {
@@ -38,6 +38,6 @@ namespace UmesiServer.Models
             get => (Username == string.Empty) ? string.Empty : $"{Username}:FollowedUsers";
         }
 
-        public List<User> FollowedUsers { get; set; } = new List<User>();
+        public List<string> FollowedUsers { get; set; } = new List<string>();
     }
 }

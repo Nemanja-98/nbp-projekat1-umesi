@@ -22,23 +22,11 @@ namespace UmesiServer.Controllers
         {
             try
             {
-                return new JsonResult(new { token = await _unitOfWork.AuthManager.Login(creds) });
+                return new JsonResult(new TokenDto(await _unitOfWork.AuthManager.Login(creds)));
             }
             catch (HttpResponseException ex)
             {
-                return StatusCode(ex.Status, ex.Message);
-            }
-        }
-
-        [HttpPost("test")]
-        public async Task<ActionResult<string>> Test(TokenDto dto)
-        {
-            try
-            {
-                return (await _unitOfWork.AuthManager.IsLogedIn(dto.Token)) ? "We gucci" : "We not gucci";
-            }
-            catch (HttpResponseException ex)
-            {
+                _logger.LogError(ex.Message);
                 return StatusCode(ex.Status, ex.Message);
             }
         }

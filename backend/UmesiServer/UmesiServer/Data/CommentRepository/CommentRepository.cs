@@ -22,7 +22,7 @@ namespace UmesiServer.Data.CommentRepository
         {
             IDatabase db = _redis.GetDatabase();
             if (recipeId < 0)
-                throw new HttpResponseException(400, "Identifier our of bounds");
+                throw new HttpResponseException(400, "Identifier out of bounds");
             Recipe recipe = (await db.ListRangeAsync(ListConsts.RecipeListKey)).ToList().Select(r => JsonSerializer.Deserialize<Recipe>(r.ToString())).Where(r => r.Id == recipeId).FirstOrDefault();
             if (recipe == null)
                 throw new HttpResponseException(404, "Recipe not found");
@@ -34,8 +34,8 @@ namespace UmesiServer.Data.CommentRepository
 
         public async Task AddComment(int recipeId, Comment comment)
         {
-            if (comment == null)
-                throw new HttpResponseException(400, "Dto can't be null");
+            if (string.IsNullOrEmpty(comment.UserRef))
+                throw new HttpResponseException(400, "Dto missing required fields");
             IDatabase db = _redis.GetDatabase();
             Recipe recipe = (await db.ListRangeAsync(ListConsts.RecipeListKey)).ToList().Select(r => JsonSerializer.Deserialize<Recipe>(r.ToString())).Where(r => r.Id == recipeId).FirstOrDefault();
             if (recipe == null)
