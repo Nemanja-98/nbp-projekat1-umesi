@@ -1,1 +1,19 @@
-<p>post works!</p>
+<mat-card>
+    <mat-card-title>{{ post.Title }}</mat-card-title>
+    <mat-card-subtitle>{{ post.UserRef }}</mat-card-subtitle>
+    <div class="divImg"><img class="recipeImg" mat-card-image src="{{ post.ImagePath }}" alt="Photo of a Shiba Inu"></div>
+    <mat-card-content>
+        <h1>Sastojci:</h1>
+        <mat-list role="list">
+            <mat-list-item role="listitem">Sastojak 1</mat-list-item>
+            <mat-list-item role="listitem">Sastojak 2</mat-list-item>
+            <mat-list-item role="listitem">Sastojak 3</mat-list-item>
+        </mat-list>
+        
+        <h1>Postupak pripreme</h1>
+        <p>
+            {{ post.Description }}
+        </p>
+    </mat-card-content>
+</mat-card>
+<app-comment *ngFor="let comment of post.Comments"></app-comment>

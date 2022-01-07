@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
+.divImg {
+    display: flex;
+    justify-content: center;
+    height: 200px;
+}
+
+.recipeImg {
+    width: 75%;
+}
