@@ -18,7 +18,7 @@ namespace UmesiServer.Controllers
         }
 
         [HttpGet("GetCommentsForRecipe/{recipeId}")]
-        public async Task<ActionResult<List<Comment>>> GetCommentsForRecipe(int recipeId)
+        public async Task<ActionResult<List<Comment>>> GetCommentsForRecipe([FromRoute]int recipeId)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace UmesiServer.Controllers
         }
 
         [HttpPost("AddComment/{recipeId}")]
-        public async Task<ActionResult> AddCommentToRecipe(int recipeId, Comment comment)
+        public async Task<ActionResult> AddCommentToRecipe([FromRoute]int recipeId, [FromBody]Comment comment)
         {
             try
             {

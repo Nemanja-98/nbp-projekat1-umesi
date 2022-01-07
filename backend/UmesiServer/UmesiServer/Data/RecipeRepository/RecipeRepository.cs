@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 using UmesiServer.Constants;
+using UmesiServer.DTOs.Records;
 using UmesiServer.Exceptions;
 using UmesiServer.Models;
 
@@ -26,7 +27,7 @@ namespace UmesiServer.Data.RecipeRepository
             if (id < 0)
                 throw new HttpResponseException(400, "Identifier out of bounds");
             IDatabase db = _redis.GetDatabase();
-            Recipe recipe = (await db.ListRangeAsync(ListConsts.RecipeListKey)).ToList().Select(r => JsonSerializer.Deserialize<Recipe>(r)).Where(r => r.Id == id).FirstOrDefault();
+            Recipe recipe = (await db.ListRangeAsync(ListConsts.RecipeListKey)).ToList().Select(r => JsonSerializer.Deserialize<Recipe>(r)).Where(r => r.Id == id && r.IsDeleted == 0).FirstOrDefault();
             if (recipe == null)
                 throw new HttpResponseException(404, "Recipe does not exist");
             List<RedisValue> redisComments = (await db.ListRangeAsync(recipe.CommentListKey)).ToList();
@@ -41,14 +42,14 @@ namespace UmesiServer.Data.RecipeRepository
             List<Recipe> recipes = new List<Recipe>();
             if (redisRecipes.Count == 0)
                 return recipes;
-            recipes = redisRecipes.Select(r => JsonSerializer.Deserialize<Recipe>(r.ToString())).ToList();
+            recipes = redisRecipes.Select(rv => JsonSerializer.Deserialize<Recipe>(rv.ToString())).Where(r => r.IsDeleted == 0).ToList();
             return recipes;
         }
 
         public async Task AddRecipe(Recipe recipe)
         {
-            if (recipe == null)
-                throw new HttpResponseException(400, "Recipe is null");
+            if (recipe.Title == null)
+                throw new HttpResponseException(400, "Recipe missing required fields");
             IDatabase db = _redis.GetDatabase();
             recipe.Id = await _unitOfWork.IdGenerator.GetRecipeId();
             string jsonRecipe = JsonSerializer.Serialize<Recipe>(recipe);
@@ -58,7 +59,7 @@ namespace UmesiServer.Data.RecipeRepository
             await db.ListLeftPushAsync(ListConsts.RecipeListKey, jsonRecipe);
             
             User owner = JsonSerializer.Deserialize<User>(jsonUser);
-            await db.ListRightPushAsync(owner.CreatedRecipesKey, jsonRecipe);
+            await db.ListRightPushAsync(owner.CreatedRecipesKey, recipe.Id.ToString());
         }
 
         public Task UpdateRecipe(string username, Recipe recipe)

@@ -16,9 +16,10 @@ namespace UmesiServer.Models
         
         public string Description { get; set; }
         
-        [JsonIgnore]
         public string ImagePath { get; set; }
         
+        public int IsDeleted { get; set; }
+
         [JsonIgnore]
         public string CommentListKey 
         { 

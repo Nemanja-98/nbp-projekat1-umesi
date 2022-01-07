@@ -16,7 +16,7 @@ namespace UmesiServer.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            if (context.Request.Path.Value.Contains("api/Auth"))
+            if (context.Request.Path.Value.Contains("api/Auth") || context.Request.Path.Value.Contains("api/User/AddUser"))
             {
                 await _next?.Invoke(context);
                 return;

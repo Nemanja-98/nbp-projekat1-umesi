@@ -46,7 +46,7 @@ namespace UmesiServer.Controllers
         }
 
         [HttpPost("AddRecipe")]
-        public async Task<ActionResult> PostRecipe(Recipe recipe)
+        public async Task<ActionResult> PostRecipe([FromBody]Recipe recipe)
         {
             try
             {

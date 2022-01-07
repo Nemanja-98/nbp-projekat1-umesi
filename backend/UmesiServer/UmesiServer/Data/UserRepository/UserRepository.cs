@@ -28,8 +28,19 @@ namespace UmesiServer.Data.UserRepository
                 throw new HttpResponseException(404, "User does not exist");
             }
             User user = JsonSerializer.Deserialize<User>(jsonUser);
-            user.CreatedRecipes = (await db.ListRangeAsync(user.CreatedRecipesKey)).Select(r => JsonSerializer.Deserialize<Recipe>(r.ToString())).ToList();
-            user.FavoriteRecipes = (await db.ListRangeAsync(user.FavoriteRecipesKey)).Select(r => JsonSerializer.Deserialize<Recipe>(r.ToString())).ToList();
+            user.CreatedRecipes = (await db.ListRangeAsync(user.CreatedRecipesKey))
+                .Select(rv => int.Parse(rv.ToString()))
+                .Select(rid => db.ListRange(ListConsts.RecipeListKey)
+                                        .Select(rv => JsonSerializer.Deserialize<Recipe>(rv.ToString()))
+                                        .Where(r => r.Id == rid)
+                                        .Single()).ToList();
+            user.FavoriteRecipes = (await db.ListRangeAsync(user.FavoriteRecipesKey))
+                .Select(rv => int.Parse(rv.ToString()))
+                .Select(rid => db.ListRange(ListConsts.RecipeListKey)
+                                        .Select(rv => JsonSerializer.Deserialize<Recipe>(rv.ToString()))
+                                        .Where(r => r.Id == rid)
+                                        .Single()).ToList();
+            user.FollowedUsers = (await db.ListRangeAsync(user.FollowedUsersKey)).Select(rv => rv.ToString()).ToList();
             return user;
         }
 
@@ -48,8 +59,8 @@ namespace UmesiServer.Data.UserRepository
 
         public async Task AddUser(User user)
         {
-            if (user == null)
-                throw new HttpResponseException(400, "User is null");
+            if (string.IsNullOrEmpty(user.Username))
+                throw new HttpResponseException(400, "Bad dto");
             IDatabase db = _redis.GetDatabase();
             string existingUser = await db.StringGetAsync(user.Username);
             if (!string.IsNullOrEmpty(existingUser))
@@ -71,5 +82,21 @@ namespace UmesiServer.Data.UserRepository
             throw new NotImplementedException();
         }
 
+        public async Task AddRecipeToFavorites(string username, int recipeId)
+        {
+            if (string.IsNullOrEmpty(username) || recipeId <= 0)
+                throw new HttpResponseException(400, "Bad request");
+            IDatabase db = _redis.GetDatabase();
+            string redisUser = await db.StringGetAsync(username);
+            if (string.IsNullOrEmpty(redisUser))
+                throw new HttpResponseException(404, "User does not exist");
+            User user = JsonSerializer.Deserialize<User>(redisUser);
+            Recipe recipe = (await db.ListRangeAsync(ListConsts.RecipeListKey))
+                .Select(rv => JsonSerializer.Deserialize<Recipe>(rv.ToString()))
+                .Where(r => r.Id == recipeId && r.IsDeleted == 0).SingleOrDefault();
+            if (recipe == null)
+                throw new HttpResponseException(404, "Recipe not found");
+            await db.ListLeftPushAsync(user.FavoriteRecipesKey, recipeId.ToString());
+        }
     }
 }

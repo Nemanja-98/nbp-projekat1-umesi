@@ -46,12 +46,27 @@ namespace UmesiServer.Controllers
         }
 
         [HttpPost("AddUser")]
-        public async Task<ActionResult> PostUser(User user)
+        public async Task<ActionResult> PostUser([FromBody]User user)
         {
             try
             {
                 await _unitOfWork.UserRepository.AddUser(user);
                 return Ok("User added");
+            }
+            catch (HttpResponseException ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(ex.Status, ex.Message);
+            }
+        }
+
+        [HttpGet("AddRecipeToFavorites/{username}/{recipeId}")]
+        public async Task<ActionResult> GetAddToFavorites(string username, int recipeId)
+        {
+            try
+            {
+                await _unitOfWork.UserRepository.AddRecipeToFavorites(username, recipeId);
+                return Ok("Added to favorites");
             }
             catch (HttpResponseException ex)
             {
