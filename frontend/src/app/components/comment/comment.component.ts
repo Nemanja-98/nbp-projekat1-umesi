@@ -8,12 +8,9 @@ import { Comment } from 'src/app/models/comment';
 })
 export class CommentComponent implements OnInit {
   
-  comment: Comment;
+  @Input() comment: Comment;
 
-  constructor() {
-
-    this.comment = new Comment("Radisa", "Mnogo dobro!")
-   }
+  constructor() { }
 
   ngOnInit(): void {
     

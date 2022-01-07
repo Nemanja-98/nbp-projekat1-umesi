@@ -16,4 +16,6 @@
         </p>
     </mat-card-content>
 </mat-card>
-<app-comment *ngFor="let comment of post.Comments"></app-comment>
+<div *ngIf="post.Comments.length !== 0">
+    <app-comment  *ngFor="let comment of post.Comments" [comment]="comment"></app-comment>
+</div>
