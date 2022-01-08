@@ -13,10 +13,12 @@ namespace UmesiServer.Data.UserRepository
     public class UserRepository : IUserRepository
     {
         private ConnectionMultiplexer _redis;
+        private UnitOfWork _unitOfWork;
 
-        public UserRepository(ConnectionMultiplexer redis)
+        public UserRepository(ConnectionMultiplexer redis, UnitOfWork unit)
         {
             _redis = redis;
+            _unitOfWork = unit;
         }
 
         public async Task<User> GetUser(string username)
@@ -44,19 +46,6 @@ namespace UmesiServer.Data.UserRepository
             return user;
         }
 
-        public async Task<List<User>> GetAllUsers()
-        {
-            IDatabase db = _redis.GetDatabase();
-            List<RedisValue> redisUsers = (await db.ListRangeAsync(ListConsts.UserListKey)).ToList();
-            
-            List<User> users = new List<User>();
-            if (redisUsers.Count == 0)
-                return users;
-            foreach (RedisValue redisUser in redisUsers)
-                users.Add(JsonSerializer.Deserialize<User>(await db.StringGetAsync(redisUser.ToString())));
-            return users;
-        }
-
         public async Task AddUser(User user)
         {
             if (string.IsNullOrEmpty(user.Username))
@@ -69,17 +58,43 @@ namespace UmesiServer.Data.UserRepository
             }
             string jsonUser = JsonSerializer.Serialize<User>(user);
             await db.StringSetAsync(user.Username, jsonUser);
-            await db.ListRightPushAsync(ListConsts.UserListKey, user.Username);
         }
 
-        public Task UpdateUser(User user)
+        public async Task<User> UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(user.Username))
+                throw new HttpResponseException(400, "User dto is not ok");
+
+            IDatabase db = _redis.GetDatabase();
+            string redisUser = await db.StringGetAsync(user.Username);
+            
+            if (string.IsNullOrEmpty(redisUser))
+                throw new HttpResponseException(404, "User does not exist");
+            
+            User oldUser = JsonSerializer.Deserialize<User>(redisUser);
+
+            oldUser.Password = string.IsNullOrEmpty(user.Password) ? oldUser.Password : user.Password;
+            oldUser.Name = string.IsNullOrEmpty(user.Name) ? oldUser.Name : user.Name;
+            oldUser.Surname= string.IsNullOrEmpty(user.Surname) ? oldUser.Surname: user.Surname;
+
+            await db.StringSetAsync(oldUser.Username, JsonSerializer.Serialize<User>(oldUser));
+            return oldUser;
         }
 
-        public Task DeleteUser(string username)
+        public async Task DeleteUser(string username)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(username))
+                throw new HttpResponseException(400, "username is null");
+
+            IDatabase db = _redis.GetDatabase();
+            string redisUser = (await db.StringGetAsync(username)).ToString();
+
+            if (string.IsNullOrEmpty(redisUser))
+                throw new HttpResponseException(404, "User does not exist");
+            
+            User user = JsonSerializer.Deserialize<User>(redisUser);
+            await _unitOfWork.RecipeRepository.DeleteAllCreatedRecipesOfUser(user.CreatedRecipesKey);
+            await db.KeyDeleteAsync(username);
         }
 
         public async Task AddRecipeToFavorites(string username, int recipeId)
@@ -97,6 +112,24 @@ namespace UmesiServer.Data.UserRepository
             if (recipe == null)
                 throw new HttpResponseException(404, "Recipe not found");
             await db.ListLeftPushAsync(user.FavoriteRecipesKey, recipeId.ToString());
+        }
+
+        public async Task FollowUser(string currentUser, string userToFollow)
+        {
+            if (string.IsNullOrEmpty(currentUser) || string.IsNullOrEmpty(userToFollow))
+                throw new HttpResponseException(400, "Data is not valid");
+            IDatabase db = _redis.GetDatabase();
+
+            string redisCurUser = await db.StringGetAsync(currentUser);
+            if (string.IsNullOrEmpty(redisCurUser))
+                throw new HttpResponseException(404, "Current user does not exist");
+
+            string redisUserToFollow = await db.StringGetAsync(userToFollow);
+            if (string.IsNullOrEmpty(redisUserToFollow))
+                throw new HttpResponseException(404, "User you want to follow does not exist");
+
+            User loggedInUser = JsonSerializer.Deserialize<User>(redisCurUser);
+            await db.ListLeftPushAsync(loggedInUser.FollowedUsersKey, userToFollow);
         }
     }
 }

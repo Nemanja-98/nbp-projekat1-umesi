@@ -39,7 +39,7 @@ namespace UmesiServer.Data
 
         public IUserRepository UserRepository 
         { 
-            get => _userRepo ??= new UserRepository.UserRepository(_redis);
+            get => _userRepo ??= new UserRepository.UserRepository(_redis, this);
         }
 
         public IRecipeRepository RecipeRepository

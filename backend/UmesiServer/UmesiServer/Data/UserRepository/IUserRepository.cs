@@ -9,10 +9,10 @@ namespace UmesiServer.Data.UserRepository
     public interface IUserRepository
     {
         Task<User> GetUser(string username);
-        Task<List<User>> GetAllUsers();
         Task AddUser(User user);
-        Task UpdateUser(User user);
+        Task<User> UpdateUser(User user);
         Task DeleteUser(string username);
         Task AddRecipeToFavorites(string username, int recipeId);
+        Task FollowUser(string currentUser, string userToFollow);
     }
 }

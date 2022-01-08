@@ -12,5 +12,6 @@ namespace UmesiServer.Data.CommentRepository
         Task AddComment(int recipeId, Comment comment);
         Task<Comment> UpdateComment(int recipeId, int index, Comment comment);
         Task DeleteComment(int recipeId, int index);
+        Task DeleteAllCommentsForKey(string key);
     }
 }

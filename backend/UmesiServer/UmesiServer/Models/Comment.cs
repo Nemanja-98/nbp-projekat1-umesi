@@ -10,5 +10,7 @@ namespace UmesiServer.Models
         public string UserRef { get; set; }
         
         public string Description { get; set; }
+
+        public int IsDeleted { get; set; }
     }
 }

@@ -15,15 +15,15 @@ namespace UmesiServer.Models
         public string Title { get; set; }
         
         public string Description { get; set; }
-        
-        public string ImagePath { get; set; }
+
+        public List<string> Ingredients { get; set; } = new List<string>();
         
         public int IsDeleted { get; set; }
 
         [JsonIgnore]
         public string CommentListKey 
         { 
-            get => (Id == 0 || Title == string.Empty || UserRef == string.Empty) ? string.Empty : $"{UserRef}:({Id}):{Title}";
+            get => (Id == 0 || UserRef == string.Empty) ? string.Empty : $"{UserRef}:Recipe:{Id}";
         }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();

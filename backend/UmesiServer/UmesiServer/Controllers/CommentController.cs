@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UmesiServer.Data;
+using UmesiServer.DTOs.Records;
 using UmesiServer.Exceptions;
 using UmesiServer.Models;
 
@@ -38,6 +39,35 @@ namespace UmesiServer.Controllers
             {
                 await _unitOfWork.CommentRepository.AddComment(recipeId, comment);
                 return Ok("Comment added");
+            }
+            catch (HttpResponseException ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(ex.Status, ex.Message);
+            }
+        }
+
+        [HttpPut("UpdateComment")]
+        public async Task<ActionResult<Comment>> PutComment([FromBody]UpdateCommentDto dto)
+        {
+            try
+            {
+                return await _unitOfWork.CommentRepository.UpdateComment(dto.RecipeId, dto.Index, dto.Comment);
+            }
+            catch (HttpResponseException ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(ex.Status, ex.Message);
+            }
+        }
+
+        [HttpDelete("DeleteComment")]
+        public async Task<ActionResult> DeleteComment([FromBody]DeleteCommentDto dto)
+        {
+            try
+            {
+                await _unitOfWork.CommentRepository.DeleteComment(dto.RecipeId, dto.Index);
+                return Ok("Comment deleted");
             }
             catch (HttpResponseException ex)
             {

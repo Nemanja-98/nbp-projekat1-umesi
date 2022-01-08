@@ -59,5 +59,34 @@ namespace UmesiServer.Controllers
                 return StatusCode(ex.Status, ex.Message);
             }
         }
+
+        [HttpPut("UpdateRecipe")]
+        public async Task<ActionResult<Recipe>> PutRecipe([FromBody]Recipe recipe)
+        {
+            try
+            {
+                return await _unitOfWork.RecipeRepository.UpdateRecipe(recipe);
+            }
+            catch (HttpResponseException ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(ex.Status, ex.Message);
+            }
+        }
+
+        [HttpDelete("DeleteRecipe/{id}")]
+        public async Task<ActionResult> DeleteRecipe([FromRoute]int id)
+        {
+            try
+            {
+                await _unitOfWork.RecipeRepository.DeleteRecipe(id);
+                return Ok("Recipe deleted");
+            }
+            catch (HttpResponseException ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(ex.Status, ex.Message);
+            }
+        }
     }
 }
