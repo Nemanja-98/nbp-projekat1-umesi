@@ -1,0 +1,40 @@
+.divContainer{
+    display: inline-block;
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    background-color: whitesmoke;
+    height: 70px;
+    width: 100vw;
+    margin-bottom: 150px;
+}
+
+.divRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 25px;
+    font-size: large;
+}
+
+.divNavigationLinks{
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+   justify-content: space-between;
+}
+
+.divLogo{
+
+}
+
+.divUser{
+    width: 160px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+a{
+    text-decoration: none;
+}

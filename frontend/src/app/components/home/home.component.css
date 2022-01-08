@@ -1,0 +1,198 @@
+.mainContainer {
+    width: 100%;
+    height: 100vh;
+    display: inline-block;
+    isolation: isolate;
+    flex-direction: row;
+    justify-content: left;
+    /*position: relative;*/
+    background-image: url("https://media.sketchfab.com/models/d270211630774169ad0c03c3e46cbf00/thumbnails/8ff70f158c6a4d16b7b3b24119bcc5b8/5d27a8886b2c4d21b63f1d55ae178771.jpeg");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, 0.973);
+}
+.textkontejner{
+
+}
+
+.textContainer {
+    position: relative;
+    left: 6%;
+    right: 30%;
+    bottom: 30%;
+    margin-top: 150px;
+    float: left;
+    height: 100%;
+    padding: 0;
+  }
+
+.h1Welcome {
+    display: flex;
+    flex-direction: row;
+    color: chartreuse;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 65px;
+    animation-name: slajd;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    margin-top: 0;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+.pMessage{
+    color: white;
+    margin-top: 0;
+    letter-spacing: 2px;
+    word-spacing: 5px;
+    line-height: 1.2;
+    font-size: 26px;
+    animation-name: slajd;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+}
+
+.divReadMore {
+    animation-name: slajd;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes slajd {
+    from {
+        transform: translateX(250px);
+    }
+    to {
+        transform: translateX(0px);
+    }
+}
+
+.btnReadMore {
+    font-size: 30px;
+    border: none;
+    color: whitesmoke;
+    background-color: chartreuse;
+    border-radius: 5px;
+    width: 250px;
+    height: 60px;
+}
+
+.btnReadMore:hover {
+opacity: 0.8;
+}
+
+.aContact {
+text-decoration: none;
+color: white;
+font-family: "Rajdhani";
+}
+
+.aContact:hover {
+text-decoration: none;
+color: white;
+font-family: "Rajdhani";
+}
+  
+.divThread {
+    box-shadow: 4px 8px 17px 24px rgba(0, 0, 0, 0.75);
+    border-radius: 10px;
+    background-color: white;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    /*---pozicija celog diva----*/
+    right: 5%;
+    margin-top: 150px;
+    height: 100%;
+    width: 30%;
+
+    /*------ Animacija--------*/
+    visibility: hidden;
+    animation-name: zoomIn;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in;
+    animation-delay: 1.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes zoomIn {
+    0% {
+      transform: scale(0.67);
+    }
+    100% {
+      transform: scale(1);
+    }
+    0% {
+      visibility: hidden;
+    }
+    100% {
+      visibility: visible;
+    }
+}
+
+.pHightlight {
+    /*color: chartreuse;*/
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-bottom: 0;
+}
+
+.pThread{
+    color: rgb(26, 231, 88);
+}
+
+.searchContainer{
+    position: relative;
+    top: 50%;
+    margin: auto;
+    box-shadow: 4px 8px 17px 24px rgba(0, 0, 0, 0.75);
+    max-width: 20%;
+
+    visibility: hidden;
+    animation-name: zoomIn;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in;
+    animation-delay: 2.3s;
+    animation-fill-mode: forwards;   
+}
+
+.searchRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 60px;
+    border-radius: 6px;
+    
+    border-radius: 15px;
+}
+
+.inputSearch{
+    display: flex;
+    flex-grow: 3;
+    justify-content: flex-start;
+    padding-left: 15px;
+    font-size: x-large;
+    color: black;
+}
+
+.btnSearch{
+    display: flex;
+    flex-grow: 2;
+    justify-content: center;
+    padding-top: 12px;
+    border-radius: 5px;
+    font-size: x-large;
+    color: whitesmoke;
+    background-color: chartreuse;
+}
