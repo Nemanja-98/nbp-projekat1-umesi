@@ -20,6 +20,7 @@ import { PostComponent } from './components/post/post.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FooterComponent } from './components/footer/footer.component';
     PostComponent,
     CommentComponent,
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    AboutUsComponent
   ],
   imports: [
     HttpClientModule,
