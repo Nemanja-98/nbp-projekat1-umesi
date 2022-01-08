@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Comment } from 'src/app/models/comment';
+import { Post } from 'src/app/models/post';
 
 @Component({
   selector: 'app-post',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
+  post: Post = new Post(1, "Miladin", "Gulas", "Lako se sprema", "https://material.angular.io/assets/img/examples/shiba2.jpg", [new Comment("Kika", "Dobro"), new Comment("Micko", "Super supica")])
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.post.Comments)
   }
 
 }

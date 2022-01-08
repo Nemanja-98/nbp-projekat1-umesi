@@ -1,0 +1,25 @@
+.divContainer{
+    width: 100%;
+    height: 100%;
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.divImgContainer{
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    justify-content: space-between;
+    
+    margin-bottom: 100px;
+}
+
+img{
+    margin: 20px;
+}
+
+.imgLast{
+}

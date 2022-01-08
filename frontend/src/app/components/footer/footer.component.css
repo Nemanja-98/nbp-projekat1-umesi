@@ -1,0 +1,94 @@
+.divContainer{
+    display: inline-block;
+    z-index: 1000;
+    position: relative;
+    bottom: 0;
+    background-color: whitesmoke;
+    height: 75px;
+    width: 99vw;
+}
+
+.divRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 25px;
+    font-size: large;
+}
+
+
+.prava {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: 100;
+    color: white;
+  }
+  
+  .social-network {
+    list-style: none;
+    margin-top: 0;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    margin-bottom: 0;
+    padding: 0;
+  }
+  
+  li {
+    display: inline;
+  }
+/*   
+  .fa {
+    font-size: 25px;
+    width: 40px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    color: white;
+    padding-left: 0;
+    padding-right: 0;
+    margin-right: 0;
+    margin-left: 5px;
+  }
+  
+  .fa:hover {
+    opacity: 0.8;
+  }
+  
+  .fa-facebook:hover {
+    color: #2354bd;
+  }
+  
+  .fa-youtube-play:hover {
+    color: red;
+  }
+  
+  .fa-instagram:hover {
+    color: #d6249f;
+    background: radial-gradient(
+      circle at 30% 107%,
+      #fdf497 0%,
+      #fdf497 5%,
+      #fd5949 45%,
+      #d6249f 60%,
+      #285aeb 90%
+    );
+    background-clip: unset;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .fa-google-plus:hover {
+    color: red;
+  } */
+  
+  .brojmail {
+    color: white;
+  }
+  
+  .zapratii {
+    text-align: center;
+    color: white;
+    margin: 0;
+  }
