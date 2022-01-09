@@ -1,13 +1,13 @@
 export class User {
-    public Name : string;
-    public Surname : string;
-    public Username : string;
-    public Password : string;
+    public name : string;
+    public surname : string;
+    public username : string;
+    public password : string;
 
     constructor(Name :string, Surname :string, Username :string, Password: string){
-        this.Name = Name;
-        this.Surname = Surname;
-        this.Username = Username;
-        this.Password = Password;
+        this.name = Name;
+        this.surname = Surname;
+        this.username = Username;
+        this.password = Password;
     }
 }
