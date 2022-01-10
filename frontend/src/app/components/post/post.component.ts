@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from 'src/app/models/comment';
 import { Post } from 'src/app/models/post';
+import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
   selector: 'app-post',
@@ -9,12 +10,20 @@ import { Post } from 'src/app/models/post';
 })
 export class PostComponent implements OnInit {
 
-  post: Post = new Post(1, "Miladin", "Gulas", "Lako se sprema", "https://material.angular.io/assets/img/examples/shiba2.jpg", [new Comment("Kika", "Dobro"), new Comment("Micko", "Super supica")])
+  @Input() post: Post = new Post(1, "Miladin", "Gulas", "Lako se sprema", ["ulje", "jaja", "krompir", "meso"] ,[new Comment("Kika", "Dobro"), new Comment("Micko", "Super supica")])
+  
 
-  constructor() { }
+
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
-    console.log(this.post.Comments)
+    // this.postService.getRecipeById(2).subscribe((resultPost) => {
+    //    this.post = resultPost;
+    //   console.log("Ovo ovde", resultPost, "Ovo ovde 2",this.post);
+    // })
   }
 
+  loggedIn(): boolean{
+    return localStorage.getItem("username") ? true : false
+  }
 }

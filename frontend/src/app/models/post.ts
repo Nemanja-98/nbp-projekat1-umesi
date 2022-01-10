@@ -5,8 +5,8 @@ export class Post {
     constructor(
         public Id: number,
         public UserRef: string,
-        public Title: string,
+        public title: string,
         public Description: string,
-        public ImagePath: string,
+        public Ingridients: string[],
         public Comments: Comment[]) { }
 }

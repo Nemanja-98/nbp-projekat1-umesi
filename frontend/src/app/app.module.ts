@@ -7,8 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // angular material imports
 import { MatCardModule } from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon'; 
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input' 
+import { MatButtonModule } from '@angular/material/button';
 
 // component imports
 import { AppComponent } from './app.component';
@@ -21,6 +23,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     CommentComponent,
     NavigationComponent,
     FooterComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    AddCommentComponent
   ],
   imports: [
     HttpClientModule,
@@ -46,6 +50,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
