@@ -1,4 +1,5 @@
-﻿using UmesiServer.Models;
+﻿using StackExchange.Redis;
+using UmesiServer.Models;
 
 namespace UmesiServer.DTOs.Records
 {
@@ -7,4 +8,6 @@ namespace UmesiServer.DTOs.Records
     public record RecipeWithIndex(int Index, Recipe Recipe);
     public record UpdateCommentDto(int RecipeId, int Index, Comment Comment);
     public record DeleteCommentDto(int RecipeId, int Index);
+    public record NotificationDto(string Title, string Message);
+    public record ConnIdAAndSubscriberRecord(string ConnectionId, ISubscriber subscriber);
 }

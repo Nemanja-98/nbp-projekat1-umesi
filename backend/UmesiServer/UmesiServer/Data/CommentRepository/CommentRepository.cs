@@ -13,9 +13,12 @@ namespace UmesiServer.Data.CommentRepository
     public class CommentRepository : ICommentRepository
     {
         private ConnectionMultiplexer _redis;
-        public CommentRepository(ConnectionMultiplexer redis)
+        private UnitOfWork _unitOfWork;
+
+        public CommentRepository(ConnectionMultiplexer redis, UnitOfWork unit)
         {
             _redis = redis;
+            _unitOfWork = unit;
         }
 
         public async Task<List<Comment>> GetCommentsForRecipe(int recipeId)
@@ -41,6 +44,7 @@ namespace UmesiServer.Data.CommentRepository
             if (recipe == null)
                 throw new HttpResponseException(404, "Recipe with given id does not exist");
             await db.ListLeftPushAsync(recipe.CommentListKey, JsonSerializer.Serialize<Comment>(comment));
+            _unitOfWork.NotificationService.Notify(recipeId.ToString(), "Comment added", $"{comment.UserRef} has commented on {recipe.Title}.");
         }
 
         public async Task<Comment> UpdateComment(int recipeId, int index, Comment comment)

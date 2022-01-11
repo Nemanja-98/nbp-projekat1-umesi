@@ -9,6 +9,9 @@ using UmesiServer.Data.CommentRepository;
 using UmesiServer.Constants;
 using UmesiServer.Data.IdGeneratorRepository;
 using UmesiServer.Data.AuthManager;
+using Microsoft.AspNetCore.SignalR;
+using UmesiServer.Hubs.NotificationHub;
+using UmesiServer.Data.NotificationService;
 
 namespace UmesiServer.Data
 {
@@ -16,11 +19,13 @@ namespace UmesiServer.Data
     {
         private ConnectionMultiplexer _redis;
         private ILogger<UnitOfWork> _logger;
+        private IHubContext<NotificationHub> _notificatioContext;
 
-        public UnitOfWork(ILogger<UnitOfWork> logger)
+        public UnitOfWork(ILogger<UnitOfWork> logger, IHubContext<NotificationHub> context)
         {
             _redis = ConnectionMultiplexer.Connect("localhost:6379");
             _logger = logger;
+            _notificatioContext = context;
             _redis.ErrorMessage += _redis_ErrorMessage;
             if (string.IsNullOrEmpty(_redis.GetDatabase().StringGet(IdGenConsts.RecipeIdGenKey)))
                 _redis.GetDatabase().StringSet(IdGenConsts.RecipeIdGenKey, "1");
@@ -36,6 +41,7 @@ namespace UmesiServer.Data
         private ICommentRepository _commentRepo;
         private IIdGeneratorRepository _idGenRepo;
         private IAuthManager _authManager;
+        private INotificationService _notificationService;
 
         public IUserRepository UserRepository 
         { 
@@ -49,7 +55,7 @@ namespace UmesiServer.Data
         
         public ICommentRepository CommentRepository
         {
-            get => _commentRepo ??= new CommentRepository.CommentRepository(_redis);
+            get => _commentRepo ??= new CommentRepository.CommentRepository(_redis, this);
         }
 
         public IIdGeneratorRepository IdGenerator
@@ -60,6 +66,11 @@ namespace UmesiServer.Data
         public IAuthManager AuthManager
         {
             get => _authManager ??= new AuthManager.AuthManager(_redis);
+        }
+
+        public INotificationService NotificationService
+        {
+            get => _notificationService ??= new NotificationService.NotificationService(_redis, _notificatioContext, _logger);
         }
     }
 }
