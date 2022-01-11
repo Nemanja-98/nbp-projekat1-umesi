@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegisterComponent },
-  { path: 'post', component: PostComponent },
+  { path: 'post/:id', component: PostComponent },
 
   { path: 'about', component: AboutUsComponent },
   // to do add profile page with fav, myPosts, MyComments lists.

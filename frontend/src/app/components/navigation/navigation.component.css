@@ -1,7 +1,7 @@
 .divContainer{
     display: inline-block;
     z-index: 1000;
-    position: absolute;
+    
     top: 0;
     background-color: whitesmoke;
     height: 70px;
