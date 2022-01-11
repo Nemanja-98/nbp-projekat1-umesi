@@ -153,3 +153,6 @@ backend/UmesiServer/obj/Debug/net6.0/UmesiServer.MvcApplicationPartsAssemblyInfo
 backend/UmesiServer/obj/Debug/net6.0/UmesiServer.MvcApplicationPartsAssemblyInfo.cs
 backend/UmesiServer/obj/Debug/net6.0/UmesiServer.pdb
 backend/UmesiServer/obj/Debug/net6.0/ref/UmesiServer.dll
+backend/UmesiServer/UmesiServer/bin
+backend/UmesiServer/UmesiServer/obj/Debug
+backend/UmesiServer/UmesiServer/obj
