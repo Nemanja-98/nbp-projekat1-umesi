@@ -23,6 +23,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
 
 @NgModule({
@@ -50,6 +51,7 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgbModule,
     MatInputModule,
     MatButtonModule
   ],
