@@ -2,8 +2,8 @@
     <form>
         <mat-form-field appearance="fill">
             <mat-label>Ostavite komentar</mat-label>
-            <textarea matInput></textarea> 
+            <textarea matInput [(ngModel)]="value" name="value"></textarea>
         </mat-form-field>
     </form>
-  <button mat-raised-button color="primary">Dodaj komentar</button>
+  <button mat-raised-button color="primary" (click)="postComment()">Dodaj komentar</button>
 </div>

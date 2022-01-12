@@ -19,7 +19,7 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getRecipeById(id: number): Observable<Post> {
+  getRecipeById(id: string): Observable<Post> {
     const url = `${this.apiUrl}${id}`
     return this.http.get<Post>(url, httpOptions);
   }

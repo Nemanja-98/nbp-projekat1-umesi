@@ -8,11 +8,19 @@ import { Comment } from 'src/app/models/comment';
 })
 export class CommentComponent implements OnInit {
   
-  @Input() comment: Comment;
+  @Input() comment: Comment ;
 
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+
+  deleteComment() {
+
+  }
+
+  updateComment() {
     
   }
 

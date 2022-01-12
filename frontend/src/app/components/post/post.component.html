@@ -1,18 +1,16 @@
-<mat-card>
+<mat-card *ngIf="post !== undefined" class="post">
     <mat-card-title>{{ post.title }}</mat-card-title>
-    <mat-card-subtitle>{{ post.UserRef }}</mat-card-subtitle>
+    <mat-card-subtitle>Autor: {{ post.userRef }} <button mat-raised-button color="primary">Pretplati se, a ako vec jesi onda treba da pise unsub i naravno to i da uradi</button></mat-card-subtitle>
     <mat-card-content>
         <h1>Sastojci:</h1>
         <mat-list role="list">
-            <mat-list-item role="listitem" *ngFor="let ingridient of post.Ingridients">{{ ingridient }}</mat-list-item>
+            <mat-list-item role="listitem" *ngFor="let ingredient of post.ingredients">{{ ingredient }}</mat-list-item>
         </mat-list>
         <h1>Postupak pripreme</h1>
-        <p>
-            {{ post.Description }}
-        </p>
+        <p>{{ post.description}}</p>
     </mat-card-content>
 </mat-card>
-<app-add-comment ></app-add-comment>
-<div *ngIf="post.Comments.length !== 0">
-    <app-comment  *ngFor="let comment of post.Comments" [comment]="comment"></app-comment>
+<app-add-comment [post]="post"></app-add-comment>
+<div *ngIf="post.comments.length !== 0">
+    <app-comment  *ngFor="let comment of post.comments" [comment]="comment"></app-comment>
 </div>
