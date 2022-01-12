@@ -66,6 +66,7 @@ namespace UmesiServer.Data.RecipeRepository
             
             User owner = JsonSerializer.Deserialize<User>(jsonUser);
             await db.ListRightPushAsync(owner.CreatedRecipesKey, recipe.Id.ToString());
+            _unitOfWork.NotificationService.Notify(recipe.UserRef, "Recipe added", $"{recipe.UserRef} added a new recipe");
         }
 
         public async Task<Recipe> UpdateRecipe(Recipe recipe)

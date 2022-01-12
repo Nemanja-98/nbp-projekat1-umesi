@@ -112,6 +112,7 @@ namespace UmesiServer.Data.UserRepository
             if (recipe == null)
                 throw new HttpResponseException(404, "Recipe not found");
             await db.ListLeftPushAsync(user.FavoriteRecipesKey, recipeId.ToString());
+            await _unitOfWork.NotificationService.AddSubscription(username, recipeId.ToString());
         }
 
         public async Task FollowUser(string currentUser, string userToFollow)
@@ -130,6 +131,7 @@ namespace UmesiServer.Data.UserRepository
 
             User loggedInUser = JsonSerializer.Deserialize<User>(redisCurUser);
             await db.ListLeftPushAsync(loggedInUser.FollowedUsersKey, userToFollow);
+            await _unitOfWork.NotificationService.AddSubscription(currentUser, userToFollow);
         }
     }
 }
