@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from 'src/app/models/comment';
 
 @Component({
@@ -8,7 +8,7 @@ import { Comment } from 'src/app/models/comment';
 })
 export class CommentComponent implements OnInit {
   
-  @Input() comment: Comment ;
+  @Input() comment: Comment;
 
   constructor() { }
 

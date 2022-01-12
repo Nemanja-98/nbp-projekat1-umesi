@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Comment } from 'src/app/models/comment';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -14,11 +15,9 @@ export class PostComponent implements OnInit {
   post: Post = new Post(1, "Miladin", "Gulas", "Lako se sprema", ["ulje", "jaja", "krompir", "meso"] ,[new Comment("Kika", "Dobro", 0), new Comment("Micko", "Super supica", 0)])
   id: string = "";
 
-
-  constructor(private postService: PostService, private _Activatedroute:ActivatedRoute) { }
+  constructor(private postService: PostService, private _Activatedroute:ActivatedRoute, private changeDetecctor: ChangeDetectorRef ) { }
 
   ngOnInit(): void {
-
     this.id=this._Activatedroute.snapshot.paramMap.get("id");
     this.postService.getRecipeById(this.id).subscribe((resultPost) => {
       this.post = resultPost
@@ -28,6 +27,15 @@ export class PostComponent implements OnInit {
   }
 
   loggedIn(): boolean{
-    return localStorage.getItem("username") ? true : false
+    return localStorage.getItem("username") ? true : false;
+  }
+
+  commentAdded(comment: Comment){
+    this.post.comments.push(comment);
+    this.changeDetecctor.markForCheck();
+  }
+
+  ngOnChanges() {
+    
   }
 }
