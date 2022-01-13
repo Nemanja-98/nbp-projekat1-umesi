@@ -1,4 +1,4 @@
-<mat-card *ngIf="post !== undefined" class="post">
+<mat-card *ngIf="post" class="post">
     <mat-card-title>{{ post.title }}</mat-card-title>
     <mat-card-subtitle>Autor: {{ post.userRef }} <button mat-raised-button color="primary">Pretplati se, a ako vec jesi onda treba da pise unsub i naravno to i da uradi</button></mat-card-subtitle>
     <mat-card-content>
@@ -11,6 +11,6 @@
     </mat-card-content>
 </mat-card>
 <app-add-comment (commentAdded)="commentAdded($event)" [post]="post"></app-add-comment>
-<div *ngIf="post.comments.length !== 0">
-    <app-comment *ngFor="let comment of post.comments" [comment]="comment"></app-comment>
+<div *ngIf="post && comments.length !== 0">
+    <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
 </div>
