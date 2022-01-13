@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
 })
 export class CommentService {
 
-  private apiUrl = 'https://localhost:7084/api/Comment/AddComment/'
+  private apiUrl = 'https://localhost:7084/api/Comment/'
 
   constructor(private http: HttpClient) { }
 
   postComment(comment: Comment, recipeId: string) : Observable<any> {
-    const url = `${this.apiUrl}${recipeId}`
+    const url = `${this.apiUrl}AddComment/${recipeId}`
     return this.http.post(url, {
       "userRef": comment.userRef,
       "description": comment.description,
@@ -28,5 +28,19 @@ export class CommentService {
         'Access-Control-Allow-Origin': '*',
         'Accept': '*'
     })
+  }
+
+  deleteComment(recipeId: number, index: number) {
+
+    const options = {
+      headers: this.returnBaseHttpHeaders(),
+      body: {
+        "recipeId": recipeId,
+        "index": index
+      },
+    };
+
+    const url = `${this.apiUrl}DeleteComment`
+    return this.http.delete(url, options);
   }
 }

@@ -41,6 +41,6 @@ export class PostComponent implements OnInit {
     this.post = null;
     previous.comments.unshift(comment);
     this.post = previous
-    this.comments.unshift(comment)
+    this.comments = this.post.comments
   }
 }
