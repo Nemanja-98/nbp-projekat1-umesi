@@ -1,4 +1,5 @@
 using UmesiServer.Data;
+using UmesiServer.Hubs.NotificationHub;
 using UmesiServer.Middleware;
 using UmesiServer.Settings;
 
@@ -19,7 +20,10 @@ builder.Services.AddCors(options =>
         .AllowAnyOrigin();
     });
 });
+builder.Services.AddSignalR();
+
 builder.Services.AddSingleton<UnitOfWork>();
+
 Settings.EncryptKey = builder.Configuration["EncryptionSecretKey"];
 
 var app = builder.Build();
@@ -40,5 +44,7 @@ app.UseAuthorization();
 app.UseMiddleware<AuthMiddleware>();
 
 app.MapControllers();
+
+app.MapHub<NotificationHub>("/hub/notifications");
 
 app.Run();
