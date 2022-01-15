@@ -33,7 +33,6 @@ namespace UmesiServer.Data.RecipeRepository
             List<RedisValue> redisComments = (await db.ListRangeAsync(recipe.CommentListKey)).ToList();
             recipe.Comments = redisComments
                 .Select(rv => JsonSerializer.Deserialize<Comment>(rv.ToString()))
-                .Where(c => c.IsDeleted == 0)
                 .ToList();
             return recipe;
         }
