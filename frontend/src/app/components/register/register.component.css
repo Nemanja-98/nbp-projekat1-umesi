@@ -4,8 +4,10 @@
 
 .container{
     margin: auto;
-    margin-top: 250px;
+    margin-top: 120px;
+    margin-bottom: 130px;
     width: 50%;
+    height: 51vh;
 }
 
 input{
