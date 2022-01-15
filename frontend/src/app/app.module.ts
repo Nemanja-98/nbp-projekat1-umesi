@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 // angular material imports
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -26,6 +27,7 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
 import { CommonModule } from '@angular/common';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { CommonModule } from '@angular/common';
     NavigationComponent,
     FooterComponent,
     AboutUsComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    SearchFilterPipe
   ],
   imports: [
     HttpClientModule,
