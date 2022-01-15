@@ -61,12 +61,12 @@ namespace UmesiServer.Controllers
             }
         }
 
-        [HttpDelete("DeleteComment")]
-        public async Task<ActionResult> DeleteComment([FromBody]DeleteCommentDto dto)
+        [HttpDelete("DeleteComment/{recipeId}/{index}")]
+        public async Task<ActionResult> DeleteComment(int recipeId, int index)
         {
             try
             {
-                await _unitOfWork.CommentRepository.DeleteComment(dto.RecipeId, dto.Index);
+                await _unitOfWork.CommentRepository.DeleteComment(recipeId, index);
                 return Ok("Comment deleted");
             }
             catch (HttpResponseException ex)
