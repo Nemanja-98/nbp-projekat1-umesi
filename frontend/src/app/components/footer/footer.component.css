@@ -1,13 +1,26 @@
 .divContainer{
     display: inline-block;
     z-index: 1000;
-    position: relative;
+    position: sticky;
     bottom: 0;
     background-color: whitesmoke;
-    height: 75px;
-    width: 99vw;
+    border-top: 2px solid whitesmoke;
+    width: 100%;
 }
-
+.labelAbove{
+  position: relative;
+  top: -40px;
+  left: 62px;
+}
+img{
+  height: 50px;
+  width: 50px;
+}
+.labelBelow{
+  position: relative;;
+  bottom: -40px;
+  left: -65px;
+}
 .divRow{
     display: flex;
     flex-direction: row;
