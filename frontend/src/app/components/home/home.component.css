@@ -1,12 +1,12 @@
 .mainContainer {
     width: 100%;
-    height: 100vh;
+    height: 80vh;
     display: inline-block;
     isolation: isolate;
     flex-direction: row;
     justify-content: left;
     /*position: relative;*/
-    background-image: url("https://media.sketchfab.com/models/d270211630774169ad0c03c3e46cbf00/thumbnails/8ff70f158c6a4d16b7b3b24119bcc5b8/5d27a8886b2c4d21b63f1d55ae178771.jpeg");
+    background-image: url("https://cdn.vox-cdn.com/thumbor/6nuGrh340E58tg1mJUoaW5CyKEA=/0x0:5500x3671/1200x800/filters:focal(2310x1396:3190x2276)/cdn.vox-cdn.com/uploads/chorus_image/image/66563372/GettyImages_849177432.0.jpg");
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
