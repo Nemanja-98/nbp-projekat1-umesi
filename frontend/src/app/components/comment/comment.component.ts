@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from 'src/app/models/comment';
 
 @Component({
@@ -13,6 +13,14 @@ export class CommentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+
+  deleteComment() {
+
+  }
+
+  updateComment() {
     
   }
 

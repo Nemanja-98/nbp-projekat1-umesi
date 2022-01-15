@@ -25,6 +25,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
     BrowserAnimationsModule,
     NgbModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

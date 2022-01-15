@@ -48,6 +48,7 @@ export class UserService {
       const token = data.token;
       console.log("tokenche",token);
       localStorage.setItem('token', token );
+      localStorage.setItem('username', username)
       this.loggedIn = true;
     })
     return  post;
@@ -65,5 +66,7 @@ export class UserService {
     console.log("registering",user.username,user.password,user);
     return this.http.post("user/register", user);
   }
+
+  
  
 }

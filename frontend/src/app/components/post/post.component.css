@@ -1,13 +1,4 @@
-* {
-    box-sizing: border-box;
-}
-
-.divImg {
+/* .post {
     display: flex;
     justify-content: center;
-    height: 200px;
-}
-
-.recipeImg {
-    width: 75%;
-}
+} */
