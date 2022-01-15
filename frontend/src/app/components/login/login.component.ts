@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 // import { AccountService } from '../../../services/account/account.service';
 // import { AlertService  } from '../../../services/alert/alert.service';
 import { first } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({ templateUrl: './login.component.html',  styleUrls: ['./login.component.css'] })
 export class LoginComponent implements OnInit {
@@ -15,16 +16,11 @@ export class LoginComponent implements OnInit {
     error = '';
 
     constructor(
-        
-        // private accountService: AccountService,
-        // private alertService: AlertService,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-    ) { 
-        // if (this.accountService.userValue) { 
-        //     this.router.navigate(['/']);
-        // }
+        private userService :UserService,
+    ) {
     }
 
     ngOnInit() {
@@ -49,9 +45,9 @@ export class LoginComponent implements OnInit {
 
          this.loading = true;
         console.log("user:",this.f.username.value,this.f.password.value);
-        let response =  '';
-        //  const response =  await this.accountService.login(this.f.username.value, this.f.password.value);
-         console.log("return value",response);
+        
+         const response =  await this.userService.login(this.f.username.value, this.f.password.value);
+         console.log("return value from login:",response);
          
         // setTimeout(() => {
         //     console.log("awaited response in login:",response);
@@ -69,9 +65,6 @@ export class LoginComponent implements OnInit {
         //     }); 
      }
 }
-
-
-
             // .pipe(first())
             // .subscribe(
             //     data => {

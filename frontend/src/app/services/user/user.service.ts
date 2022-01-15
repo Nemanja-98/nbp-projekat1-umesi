@@ -34,7 +34,7 @@ export class UserService {
     console.log("logging in");
     
     const post =  this.http
-    .post('/user/login', {
+    .post('api/auth/login', {
        "Username":username,
       "Password": password,
     },{headers: {
@@ -64,7 +64,7 @@ export class UserService {
 
   register(user: User) {
     console.log("registering",user.username,user.password,user);
-    return this.http.post("user/register", user);
+    return this.http.post("api/user/adduser", user);
   }
 
   

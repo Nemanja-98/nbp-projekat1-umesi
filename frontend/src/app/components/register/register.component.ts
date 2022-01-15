@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 // import { State } from 'src/app/store/reducers/root.reducer';
 // import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-register',
@@ -19,12 +21,10 @@ export class RegisterComponent implements OnInit {
   submitted = false;
 
   constructor(
-    // private accountService: AccountService,
-    // private alertService: AlertService,
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
-      // private store: Store<State>,
-      private router: Router
+      private router: Router,
+      private userService :UserService,
   ) { }
 
   ngOnInit() {
@@ -49,17 +49,16 @@ export class RegisterComponent implements OnInit {
 
       this.loading = true;
   //     this.accountService.registerToStore(this.form.value);
-  //     this.accountService.register(this.form.value)
-  //         .pipe(first())
-  //         .subscribe(
-  //             data => {
-  //                 this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-  //                 this.router.navigate(['../login'], { relativeTo: this.route });
-  //             },
-  //             error => {
-  //                 this.alertService.error(error);
-  //                 this.loading = false;
-  //             });
-  // }
+      this.userService.register(this.form.value)
+          .pipe(first())
+          .subscribe(
+              data => {
+                  // this.alertService.success('Registration successful', { keepAfterRouteChange: true });
+                  this.router.navigate(['../login'], { relativeTo: this.route });
+              },
+              error => {
+                  // this.alertService.error(error);
+                  this.loading = false;
+              });
   }
 }
