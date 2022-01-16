@@ -12,8 +12,9 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  postComment(comment: Comment, recipeId: string) : Observable<any> {
-    const url = `${this.apiUrl}AddComment/${recipeId}`
+  postComment(comment: Comment, postId: string) : Observable<any> 
+  {
+    const url = `${this.apiUrl}AddComment/${postId}`
     return this.http.post(url, {
       "userRef": comment.userRef,
       "description": comment.description,
@@ -30,17 +31,23 @@ export class CommentService {
     })
   }
 
-  deleteComment(recipeId: number, index: number) {
+  deleteComment(postId: number, index: number) : Observable<any>
+  {
+    const url = `${this.apiUrl}DeleteComment/${postId}/${index}`
+    return this.http.delete(url, {headers: this.returnBaseHttpHeaders(), responseType: "text"});
+  }
 
-    const options = {
-      headers: this.returnBaseHttpHeaders(),
-      body: {
-        "recipeId": recipeId,
-        "index": index
-      },
-    };
-
-    const url = `${this.apiUrl}DeleteComment`
-    return this.http.delete(url, options);
+  updateComment(postId: number, index: number, newContent: string): Observable<Comment> 
+  {
+    const url = `${this.apiUrl}UpdateComment`
+    return this.http.put<Comment>(url, {
+      "recipeId": postId,
+      "index": index,
+      "comment": {
+        "userRef": "dragan",
+        "description": newContent,
+        "isDeleted": 0
+      }
+    }, {headers: this.returnBaseHttpHeaders()} )
   }
 }

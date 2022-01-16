@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit, Output , EventEmitter} from '@angular/core';
-import { error } from 'protractor';
 import { Post } from 'src/app/models/post';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { Comment } from 'src/app/models/comment';
@@ -42,7 +41,6 @@ export class AddCommentComponent implements OnInit, OnDestroy {
       this.commentAdded.emit(this.comment);
       this.value='';
     }, error => console.log(error))
-    // radi ali mora da napravim da se lepo dodaje komentar na stranicu, trenutno se ne prikaze osim ako rucno se ne reloda stranica
   }
 
   ngOnDestroy(): void {
