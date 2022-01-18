@@ -20,6 +20,9 @@ export class PostComponent implements OnInit {
   comments: Comment[] = this.post.comments;
   currentUser: User;
   private destroy$: Subject<void> = new Subject<void>();
+  index: number = -1;
+  update: boolean = false;
+  textToUpdate: string;
 
   constructor(private postService: PostService, private _Activatedroute:ActivatedRoute, private userService: UserService ) { }
 
@@ -41,12 +44,11 @@ export class PostComponent implements OnInit {
   }
 
   commentAdded(comment: Comment): void{
-    console.log(comment)
-    const previous = this.post
+    const previous = this.post;
     this.post = null;
     previous.comments.unshift(comment);
-    this.post = previous
-    this.comments = this.post.comments
+    this.post = previous;
+    this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
   }
 
   commentDeleted(index: number): void {
@@ -54,8 +56,15 @@ export class PostComponent implements OnInit {
     this.post = null;
     previous.comments[index].isDeleted = 1;
     this.post = previous;
-    this.comments = this.post.comments.filter(x=> x.isDeleted === 0)
-    console.log("Da li je zaista uspelo 5")
+    this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+  }
+
+  commentUpdated(resp: any): void{
+    const previous = this.post;
+    this.post = null;
+    previous.comments[resp.index] = resp.updatedComment;
+    this.post = previous;
+    this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
   }
 
   ngOnDestroy(): void {

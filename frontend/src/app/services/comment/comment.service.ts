@@ -44,7 +44,7 @@ export class CommentService {
       "recipeId": postId,
       "index": index,
       "comment": {
-        "userRef": "dragan",
+        "userRef": localStorage.getItem("username"),
         "description": newContent,
         "isDeleted": 0
       }

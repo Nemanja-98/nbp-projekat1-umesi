@@ -2,3 +2,18 @@
     margin-top: 3px;
     margin-bottom: 3px;
 }
+
+.divCommentButtons{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.commentButtons{
+    display: flex;
+    margin-right: 5px;
+}
+
+.commentButtonEdit{
+    background-color: yellow;
+    color: black;
+}

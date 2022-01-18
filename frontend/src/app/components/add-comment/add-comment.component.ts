@@ -3,7 +3,7 @@ import { Post } from 'src/app/models/post';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { Comment } from 'src/app/models/comment';
 import { UserService } from 'src/app/services/user/user.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -15,28 +15,32 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   @Input() post: Post;
   @Input() comment: Comment = new Comment('','',0);
+  @Input() update: boolean;
+  @Input() index: number;
+  @Input() value: string;
   @Output() commentAdded: EventEmitter<Comment> = new EventEmitter<Comment>();
+  @Output() updateComment4: EventEmitter<any> = new EventEmitter<any>();
   private destroy$: Subject<void> = new Subject<void>();
-  value: string = '';
-
+  
   constructor(private CommentService: CommentService, private UserService: UserService) { }
 
   ngOnInit(): void {
   }
 
-  postComment() {
+  postComment(): void {
 
     if(this.value === '') {
       alert("Ne mozete postaviti prazan komentar!");
       return;
     }
 
-    this.comment.userRef = "dragan";//this.UserService.getUsername();
+    this.comment.userRef = localStorage.getItem("username");
     this.comment.description = this.value;
     this.comment.isDeleted = 0;
     this.CommentService.postComment(this.comment, this.post.id.toString())
     .pipe(takeUntil(this.destroy$))
-    .subscribe( resp => {
+    .subscribe( resp => 
+    {
       console.log(this.comment)
       this.commentAdded.emit(this.comment);
       this.value='';

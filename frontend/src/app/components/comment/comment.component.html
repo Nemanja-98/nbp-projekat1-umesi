@@ -1,6 +1,15 @@
 <mat-card>
     <mat-card-title>{{ comment.userRef }}</mat-card-title>
     <mat-card-content>{{ comment.description }}</mat-card-content>
-    <button mat-raised-button color="accent" (click)="updateComment()">Izmeni</button>
-    <button mat-raised-button color="warn" (click)="deleteComment()">Izbrisi</button>
+    <mat-form-field class="example-full-width" appearance="fill" *ngIf="update">
+        <textarea matInput [(ngModel)]="value" name="value"></textarea>
+    </mat-form-field>
+    <div class="divCommentButtons">
+        <button mat-raised-button [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="update" (click)="updateComment()">Izmeni komentar</button>
+        <button mat-raised-button color="warn" [ngClass]="'commentButtons'" *ngIf="update" (click)="update=false">Odustani</button>
+    </div>
+    <div *ngIf="isOwner()" class="divCommentButtons">
+        <button mat-raised-button  [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="!update" (click)="showFormForUpdate()">Izmeni</button>
+        <button mat-raised-button color="warn" [ngClass]="'commentButtons'" class="commentButtons" *ngIf="!update" (click)="deleteComment()">Izbrisi</button>
+    </div>
 </mat-card>

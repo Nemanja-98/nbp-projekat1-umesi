@@ -1,0 +1,6 @@
+.addCommentButton{
+    display: flex;
+    margin-left: 5px;
+    background-color: green;
+    color: white;
+}

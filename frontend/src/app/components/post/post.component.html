@@ -12,5 +12,5 @@
 </mat-card>
 <app-add-comment (commentAdded)="commentAdded($event)" [post]="post"></app-add-comment>
 <div *ngIf="post && comments.length !== 0">
-    <app-comment *ngFor="let comment of comments" [comment]="comment" [post]="post" (commentDeleted)="commentDeleted($event)"></app-comment>
+    <app-comment *ngFor="let comment of comments" [comment]="comment" [post]="post" (commentDeleted)="commentDeleted($event)" (commentUpdated)="commentUpdated($event)"></app-comment>
 </div>

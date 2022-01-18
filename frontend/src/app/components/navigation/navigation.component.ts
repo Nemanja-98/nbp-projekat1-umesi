@@ -13,4 +13,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout(): void{
+    this.userService.logout()
+  }
 }

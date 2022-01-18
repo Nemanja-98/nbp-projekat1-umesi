@@ -34,7 +34,7 @@ export class UserService {
     console.log("logging in");
     
     const post =  this.http
-    .post('api/auth/login', {
+    .post('https://localhost:7084/api/auth/login', {
        "Username":username,
       "Password": password,
     },{headers: {
@@ -50,6 +50,7 @@ export class UserService {
       localStorage.setItem('token', token );
       localStorage.setItem('username', username)
       this.loggedIn = true;
+      this.router.navigate(['']);
     })
     return  post;
       
@@ -57,6 +58,8 @@ export class UserService {
 
    logout() {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
     this.userSubject.next(null);
     this.loggedIn = false;
     this.router.navigate(['/account/login']);
