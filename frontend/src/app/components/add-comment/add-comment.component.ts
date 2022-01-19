@@ -17,7 +17,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   @Input() comment: Comment = new Comment('','',0);
   @Input() update: boolean;
   @Input() index: number;
-  @Input() value: string;
+  @Input() value: string = '';
   @Output() commentAdded: EventEmitter<Comment> = new EventEmitter<Comment>();
   @Output() updateComment4: EventEmitter<any> = new EventEmitter<any>();
   private destroy$: Subject<void> = new Subject<void>();
@@ -45,6 +45,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
       this.commentAdded.emit(this.comment);
       this.value='';
     }, error => console.log(error))
+  }
+
+  isLoggedIn(): boolean{
+    return localStorage.getItem("username") ? true : false;
   }
 
   ngOnDestroy(): void {

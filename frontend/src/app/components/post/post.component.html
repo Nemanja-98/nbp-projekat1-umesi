@@ -1,16 +1,18 @@
-<mat-card *ngIf="post" class="post">
-    <mat-card-title>{{ post.title }}</mat-card-title>
-    <mat-card-subtitle>Autor: {{ post.userRef }} <button mat-raised-button color="primary">Subscribe</button></mat-card-subtitle>
+<mat-card *ngIf="post" >
+    <mat-card-title [ngClass]="'post'">{{ post.title }}</mat-card-title>
+    <mat-card-subtitle [ngClass]="'post'">Autor: {{ post.userRef }} <button mat-raised-button color="primary">Subscribe</button></mat-card-subtitle>
     <mat-card-content>
-        <h1>Sastojci:</h1>
-        <mat-list role="list">
-            <mat-list-item role="listitem" *ngFor="let ingredient of post.ingredients">{{ ingredient }}</mat-list-item>
-        </mat-list>
-        <h1>Postupak pripreme</h1>
-        <p>{{ post.description}}</p>
+        <h1 [ngClass]="'post'">Sastojci:</h1>
+        <div [ngClass]="'post'">
+            <mat-list role="list">
+                <mat-list-item role="listitem" *ngFor="let ingredient of post.ingredients">{{ ingredient }}</mat-list-item>
+            </mat-list>
+        </div>
+        <h1 [ngClass]="'post'">Postupak pripreme</h1>
+        <p [ngClass]="'post'">{{ post.description}}</p>
     </mat-card-content>
 </mat-card>
-<app-add-comment (commentAdded)="commentAdded($event)" [post]="post"></app-add-comment>
+<app-add-comment [ngClass]="'post'" (commentAdded)="commentAdded($event)" [post]="post"></app-add-comment>
 <div *ngIf="post && comments.length !== 0">
     <app-comment *ngFor="let comment of comments" [comment]="comment" [post]="post" (commentDeleted)="commentDeleted($event)" (commentUpdated)="commentUpdated($event)"></app-comment>
 </div>

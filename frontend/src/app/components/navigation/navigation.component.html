@@ -1,18 +1,18 @@
 <div class="divContainer">
     <div class="divRow">
         <div class="divLogo">
-            <a href="/home">logo</a>
+            <a [routerLink]="['home']">logo</a>
         </div>
         <div class="divNavigationLinks">
             <a [routerLink]="['post','1']">Random Post</a>
             <a>Posts</a>
-            <a href="/about">About us</a>
+            <a [routerLink]="['about']">About us</a>
         </div>
         <div class="divUser">
-            <a href="/login" *ngIf="this.userService.loggedIn" (click)="logout()">Log Out</a>
-            <a href="/login" *ngIf="!this.userService.loggedIn">Login</a>
+            <a [routerLink]="['login']" *ngIf="this.userService.loggedIn" (click)="logout()">Log Out</a>
+            <a [routerLink]="['login']" *ngIf="!this.userService.loggedIn">Login</a>
             <label *ngIf="!this.userService.loggedIn">/</label>
-            <a href="/registration" *ngIf="!this.userService.loggedIn">Sign up</a>
+            <a [routerLink]="['registration']" *ngIf="!this.userService.loggedIn">Sign up</a>
         </div>
     </div>
 </div>

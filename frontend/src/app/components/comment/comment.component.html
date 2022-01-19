@@ -1,15 +1,19 @@
-<mat-card>
+<mat-card tabindex="0">
     <mat-card-title>{{ comment.userRef }}</mat-card-title>
-    <mat-card-content>{{ comment.description }}</mat-card-content>
+    <mat-card-content *ngIf="!update">
+        <textarea matInput [(ngModel)]="comment.description" readonly="true" [ngClass]="'fixedHeight'"></textarea>
+    </mat-card-content>
     <mat-form-field class="example-full-width" appearance="fill" *ngIf="update">
-        <textarea matInput [(ngModel)]="value" name="value"></textarea>
+        <textarea matInput [(ngModel)]="value" name="value" [ngClass]="'fixedHeight'"></textarea>
     </mat-form-field>
-    <div class="divCommentButtons">
-        <button mat-raised-button [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="update" (click)="updateComment()">Izmeni komentar</button>
-        <button mat-raised-button color="warn" [ngClass]="'commentButtons'" *ngIf="update" (click)="update=false">Odustani</button>
-    </div>
-    <div *ngIf="isOwner()" class="divCommentButtons">
-        <button mat-raised-button  [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="!update" (click)="showFormForUpdate()">Izmeni</button>
-        <button mat-raised-button color="warn" [ngClass]="'commentButtons'" class="commentButtons" *ngIf="!update" (click)="deleteComment()">Izbrisi</button>
-    </div>
+    <mat-card-actions align="end">
+        <div class="divCommentButtons">
+            <button mat-raised-button [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="update" (click)="updateComment()">Izmeni komentar</button>
+            <button mat-raised-button color="warn" [ngClass]="'commentButtons'" *ngIf="update" (click)="update=false">Odustani</button>
+        </div>
+        <div *ngIf="isOwner()" class="divCommentButtons">
+            <button mat-raised-button  [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="!update" (click)="showFormForUpdate()">Izmeni</button>
+            <button mat-raised-button color="warn" [ngClass]="'commentButtons'" class="commentButtons" *ngIf="!update" (click)="deleteComment()">Izbrisi</button>
+        </div>
+    </mat-card-actions>
 </mat-card>
