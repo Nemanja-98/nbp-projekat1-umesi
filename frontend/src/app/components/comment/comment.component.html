@@ -1,19 +1,29 @@
 <mat-card tabindex="0">
     <mat-card-title>{{ comment.userRef }}</mat-card-title>
-    <mat-card-content *ngIf="!update">
-        <textarea matInput [(ngModel)]="comment.description" readonly="true" [ngClass]="'fixedHeight'"></textarea>
+    <mat-card-content [ngClass]="'flexHorizontal'">
+            <textarea matInput *ngIf="!update" [(ngModel)]="comment.description" readonly="true" [ngClass]="['fixedHeight', 'fillWidthParent']"></textarea>
+            <textarea matInput *ngIf="update" autofocus [(ngModel)]="value" name="value" [ngClass]="['fixedHeight', 'fillWidthParent']"></textarea>
     </mat-card-content>
-    <mat-form-field class="example-full-width" appearance="fill" *ngIf="update">
-        <textarea matInput [(ngModel)]="value" name="value" [ngClass]="'fixedHeight'"></textarea>
-    </mat-form-field>
     <mat-card-actions align="end">
         <div class="divCommentButtons">
-            <button mat-raised-button [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="update" (click)="updateComment()">Izmeni komentar</button>
-            <button mat-raised-button color="warn" [ngClass]="'commentButtons'" *ngIf="update" (click)="update=false">Odustani</button>
+            <button mat-raised-button [ngClass]="['commentButtons', 'greenButton']" *ngIf="update" (click)="updateComment()">
+                <mat-icon>save</mat-icon>
+                Sačuvaj izmenu
+            </button>
+            <button mat-stroked-button [ngClass]="['commentButtons', 'cancelButton']" *ngIf="update" (click)="update=false">
+                <mat-icon>cancel</mat-icon>
+                Otkaži
+            </button>
         </div>
         <div *ngIf="isOwner()" class="divCommentButtons">
-            <button mat-raised-button  [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="!update" (click)="showFormForUpdate()">Izmeni</button>
-            <button mat-raised-button color="warn" [ngClass]="'commentButtons'" class="commentButtons" *ngIf="!update" (click)="deleteComment()">Izbrisi</button>
+            <button mat-raised-button  [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="!update" (click)="showFormForUpdate()">
+                <mat-icon>edit</mat-icon>
+                Izmeni
+            </button>
+                <button mat-stroked-button color="warn" [ngClass]="['commentButtons', 'redButton']" *ngIf="!update" (click)="openDialog()">
+                <mat-icon>delete</mat-icon>
+                Izbriši
+            </button>
         </div>
     </mat-card-actions>
 </mat-card>

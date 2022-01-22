@@ -1,0 +1,8 @@
+.commentButtons{
+    display: flex;
+    margin-left: 5px;
+}
+
+.cancelButton{
+    border: 1px solid black;
+}

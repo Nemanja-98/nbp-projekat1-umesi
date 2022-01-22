@@ -1,6 +1,20 @@
 .addCommentButton{
     display: flex;
-    margin-left: 5px;
+    margin: 10px;
     background-color: green;
     color: white;
+    align-self: flex-end;
+    max-width: 160px;
+}
+
+.post {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5px;
+}
+
+.margin {
+    margin: 5px;
+    height: 100px;
 }

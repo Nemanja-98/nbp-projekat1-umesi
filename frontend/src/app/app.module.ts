@@ -28,6 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
 import { CommonModule } from '@angular/common';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ExampleDialogComponent } from './components/example-dialog/example-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     FooterComponent,
     AboutUsComponent,
     AddCommentComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    ExampleDialogComponent
   ],
   imports: [
     HttpClientModule,
@@ -59,6 +62,7 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     MatInputModule,
     MatButtonModule,
     CommonModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

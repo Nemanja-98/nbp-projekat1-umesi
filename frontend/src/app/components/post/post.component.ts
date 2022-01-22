@@ -33,7 +33,6 @@ export class PostComponent implements OnInit {
     .subscribe((resultPost) => {
       this.post = resultPost;
       this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
-      console.log(this.post);
     })
     this.userService.user.subscribe((user: User) => this.currentUser = user)
     

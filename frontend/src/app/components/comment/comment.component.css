@@ -14,11 +14,37 @@
 }
 
 .commentButtonEdit{
-    background-color: yellow;
-    color: black;
+    background-color: #2196F3;
+    color: white;
 }
 
 .fixedHeight{
     min-height: 100px;
     max-height: 100px;
+    border: none;
+}
+
+.greenButton{
+    background-color: green;
+    color: white;
+}
+
+.cancelButton{
+    border: 1px solid black;
+}
+
+.fillWidthParent {
+    width: 100%;
+}
+
+.redButton{
+    border: 1px solid red;
+}
+
+mat-card{
+    margin: 5px;
+}
+
+mat-card-title{
+    margin-bottom: 7px;
 }

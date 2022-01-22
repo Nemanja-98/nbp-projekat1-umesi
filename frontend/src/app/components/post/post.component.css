@@ -2,3 +2,35 @@
     display: flex;
     justify-content: center;
 }
+
+.fontLarge{
+    font-size: large;
+}
+
+.dipslayRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.divWidth{
+    max-width: 50%;
+}
+
+.fontTitle{
+    font-size: 42px;
+}
+
+.paragraph{
+    text-align: justify;
+    text-justify: auto;
+}
+
+.margins{
+    margin: 10px;
+}
+
+.minWidth{
+    min-width: 300px;
+    max-width: 100%;
+}

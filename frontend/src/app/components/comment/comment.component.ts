@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { error } from 'protractor';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, timeout } from 'rxjs/operators';
 import { Comment } from 'src/app/models/comment';
 import { Post } from 'src/app/models/post';
 import { CommentService } from 'src/app/services/comment/comment.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ExampleDialogComponent } from '../example-dialog/example-dialog.component';
 
 @Component({
   selector: 'app-comment',
@@ -23,7 +25,7 @@ export class CommentComponent implements OnInit {
   update: boolean = false;
 
 
-  constructor(private CommentService: CommentService) { }
+  constructor(private CommentService: CommentService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     
@@ -54,6 +56,15 @@ export class CommentComponent implements OnInit {
 
   isOwner(): boolean{
     return this.comment.userRef === localStorage.getItem("username") ? true : false;
+  }
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(ExampleDialogComponent);
+    
+    dialogRef.afterClosed().subscribe( resp => {
+      if(resp === "true")
+        this.deleteComment()
+    })
   }
 
   ngOnDestroy(): void {

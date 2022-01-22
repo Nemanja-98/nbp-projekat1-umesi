@@ -1,9 +1,7 @@
-<div *ngIf="isLoggedIn()">
-    <form>
-        <mat-form-field appearance="fill">
-            <mat-label>Ostavite komentar</mat-label>
-            <textarea matInput [(ngModel)]="value" name="value"></textarea>
-        </mat-form-field>
-    </form>
-  <button mat-raised-button class="addCommentButton" (click)="postComment()">Dodaj komentar</button>
+<div *ngIf="isLoggedIn()" class="post">
+    <textarea matInput [(ngModel)]="value" [ngClass]="'margin'" name="value" placeholder="Ostavite komentar"></textarea>
+    <button mat-raised-button [ngClass]="'addCommentButton'" (click)="postComment()">
+        <mat-icon> add_comment</mat-icon>
+        Dodaj komentar
+    </button>
 </div>
