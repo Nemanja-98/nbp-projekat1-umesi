@@ -70,6 +70,22 @@ export class UserService {
     return this.http.post("api/user/adduser", user);
   }
 
+  getUserPosts(username : string){
+    //http request here
+
+    return ["post 1", "post 2", "post 3", "post 4","post 5","post 6","post 7","post 8","post 9","post 10",];
+  }
+
+  getUserComments(username : string){
+    //http request here
+
+    return ["comment 1", "comment 2", "comment 3"];
+  }
   
+  getUserFavouritePosts(username : string){
+    //http request here
+
+    return ["favourite post 1", "favourite post 2", "favourite post 3"];
+  }
  
 }

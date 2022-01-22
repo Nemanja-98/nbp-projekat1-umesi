@@ -1,1 +1,32 @@
-<p>profile works!</p>
+<div class="container">
+    <div class="row">
+        <div class="divLeft">
+            <div class="divProfileHeader">
+                <div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1024px-Circle-icons-profile.svg.png" />
+                </div>
+                <div class="textUsername">
+                    {{this.username}}
+                </div>
+            </div>
+            <div class="divProfileNavLinks">
+                <button class="divFav" (click)="showFavouritePosts()">
+                    Favourites
+                </button>
+                <button class="divMyPosts" (click)="showUserPosts()">
+                    My posts
+                </button>
+                <button class="divMyComments" (click)="showUserComments()">
+                    My comments
+                </button>
+            </div>
+        </div>
+
+        <div class="divProfileContent">
+            <ul class="ulContent">
+                <li *ngFor="let item of displayedList">{{item}}</li>
+            </ul>
+        </div>
+    </div>
+
+</div>

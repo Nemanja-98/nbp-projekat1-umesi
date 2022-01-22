@@ -1,0 +1,65 @@
+.container{
+   display: flex;
+   flex-direction: column;
+   max-width: 100% !important;
+   height: 720px;
+   margin: 0px 0px 0px 0px;
+   padding-left: 10px;
+   background-color: #e9ecef;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.divLeft{
+    float: left;
+    max-width: 15%;
+    height: 720px;
+    border-right: 4px solid black;
+}
+
+.divProfileHeader{
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    margin-bottom: 50px;
+    border-bottom: 4px solid black;
+}
+.textUsername{
+    padding-top: 15px;
+    margin-left: 10px;
+}
+
+img{
+    height: 50px;
+    width: 50px;
+}
+.divProfileNavLinks{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+}
+.divMyComments, .divMyPosts, .divFav{
+    border: 4px solid black;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+.divProfileContent{
+    width: 300px;
+    margin: auto;
+}
+
+.ulContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 520px;
+}
