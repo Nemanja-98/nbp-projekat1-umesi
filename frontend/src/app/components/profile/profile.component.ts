@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
+import { PostService } from 'src/app/services/post/post.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -19,7 +21,7 @@ export class ProfileComponent implements OnInit {
   public recipeDesc :string = '';
   public recipeIngredients :string = '';
   
-  constructor(private userService : UserService) {
+  constructor(private userService : UserService, private postService :PostService) {
     this.displayedList = this.userService.getUserPosts(this.username);
     
     this.userService.user.subscribe( (user :User) => {
@@ -45,6 +47,16 @@ export class ProfileComponent implements OnInit {
   showUserPosts(){
     this.showCreateNewRecipe = false;
     this.displayedList = this.userService.getUserPosts(this.username);
+    const posts = this.postService.getRecipesByUser();
+    this.postService.userPosts$.subscribe( (posts :Post[]) => {
+      if(posts){
+        const userPosts: Post[] = posts.filter((post: Post) => post.userRef === this.username); 
+        console.log("userposts", userPosts);
+        this.displayedList = userPosts.map( (post :Post) => {
+         return  `${post.id}.${post.title}`;
+        })
+      }
+    });
   }
 
   showCreateNewRecipeForm(){
@@ -53,5 +65,20 @@ export class ProfileComponent implements OnInit {
 
   createNewPost(){
     //http request preko post servis-a
+    const  ingredients :string[] = this.parseIngredients(this.recipeIngredients);
+    const recipeInfo = {
+      title: this.recipeTitle,
+      description: this.recipeDesc,
+      ingredients: ingredients
+
+    }
+    this.postService.createNewRecipe(recipeInfo).subscribe((data) => {
+      console.log("Created Recipe Status:", data);
+    });
+  }
+
+  parseIngredients(contents :string) : string[]{
+    const parsedValues : string[] = contents.split('\n'); 
+    return parsedValues;
   }
 }
