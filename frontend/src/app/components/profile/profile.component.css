@@ -6,6 +6,7 @@
    margin: 0px 0px 0px 0px;
    padding-left: 10px;
    background-color: #e9ecef;
+   overflow: scroll;
 }
 
 .row{
@@ -16,7 +17,8 @@
 .divLeft{
     float: left;
     max-width: 15%;
-    height: 720px;
+    min-height: 720px;
+    height: 100%;
     border-right: 4px solid black;
 }
 
@@ -62,4 +64,12 @@ img{
     flex-direction: column;
     justify-content: space-evenly;
     height: 520px;
+    list-style: none;
+}
+
+.ulContentForm{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    justify-content: space-evenly;
 }

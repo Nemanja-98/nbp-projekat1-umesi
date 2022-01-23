@@ -14,18 +14,46 @@
                     Favourites
                 </button>
                 <button class="divMyPosts" (click)="showUserPosts()">
-                    My posts
+                    My recipes
                 </button>
-                <button class="divMyComments" (click)="showUserComments()">
-                    My comments
+                <button class="divMyComments" (click)="showFollowedUsers()">
+                    Followed users
+                </button>
+                <button class="divMyComments" (click)="showCreateNewRecipeForm()">
+                    Create New Recipe
                 </button>
             </div>
         </div>
 
         <div class="divProfileContent">
-            <ul class="ulContent">
+            <ul class="ulContent" *ngIf="!this.showCreateNewRecipe">
                 <li *ngFor="let item of displayedList">{{item}}</li>
             </ul>
+            <div class="ulContentForm" *ngIf="this.showCreateNewRecipe">
+
+         
+            <!-- <ul class="ulContentForm" *ngIf="this.showCreateNewRecipe">
+                <li> -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Unesite Naslov</mat-label>
+                        <textarea matInput [(ngModel)]="recipeTitle" name="value"></textarea>
+                    </mat-form-field>
+                <!-- </li>
+                <li> -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Unesite sastojke</mat-label>
+                        <textarea matInput [(ngModel)]="recipeIngredients" name="value"></textarea>
+                    </mat-form-field>
+                <!-- </li>
+                <li> -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>Unesite nacin pripreme</mat-label>
+                        <textarea matInput [(ngModel)]="recipeDesc" name="value"></textarea>
+                    </mat-form-field>
+                <!-- </li> -->
+                <button (click)="createNewPost()">Submit</button>
+            <!-- </ul> -->
+        </div>
         </div>
     </div>
 

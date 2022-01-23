@@ -4,10 +4,10 @@
             <a [routerLink]="['home']">logo</a>
         </div>
         <div class="divNavigationLinks">
-            <a [routerLink]="['post','1']">Random Post</a>
+            <a [routerLink]="['post','1']">Random Recipe</a>
             <a>Posts</a>
             <!-- change logic for *ngIf="!this.userService.loggedIn for profile anchor tag -->
-            <a [routerLink]="['profile']" *ngIf="!this.userService.loggedIn">Profile</a>
+            <a [routerLink]="['profile']" *ngIf="this.userService.loggedIn">Profile</a>
             <a [routerLink]="['about']">About us</a>
         </div>
         <div class="divUser">
