@@ -110,8 +110,13 @@ export class UserService {
     return ["favourite post 1", "favourite post 2", "favourite post 3"];
   }
 
-  subscribeToUser(username){
-    //http request here
+  subscribeToAuthor(username: string, userToFollow: string){
+    const url = `https://localhost:7084/api/User/FollowUser/${username}/${userToFollow}`
+    return this.http.get(url, {headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }})
   }
  
 }

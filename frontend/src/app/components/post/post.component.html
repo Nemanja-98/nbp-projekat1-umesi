@@ -1,6 +1,11 @@
 <mat-card *ngIf="post" [ngClass]="['margins', 'minWidth']">
     <mat-card-title [ngClass]="['post', 'fontTitle']">{{ post.title }}</mat-card-title>
-    <mat-card-subtitle [ngClass]="'fontLarge'">Autor: {{ post.userRef }} <button mat-raised-button color="primary">Zaprati</button></mat-card-subtitle>
+    <mat-card-subtitle [ngClass]="'fontLarge'">Autor: {{ post.userRef }} 
+        <div *ngIf="!isOwner()">
+            <button mat-raised-button *ngIf="!subscribedToAuthor" color="primary" (click)="subscribeToAuthor()">Subscribe</button>
+            <button mat-raised-button *ngIf="subscribedToAuthor" color="primary">Unsubscribe</button>
+        </div>
+    </mat-card-subtitle>
     <mat-card-content>
         <div [ngClass]="'dipslayRow'">
         <div>

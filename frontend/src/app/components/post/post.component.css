@@ -5,6 +5,8 @@
 
 .fontLarge{
     font-size: large;
+    display: flex;
+    flex-direction: row;
 }
 
 .dipslayRow{

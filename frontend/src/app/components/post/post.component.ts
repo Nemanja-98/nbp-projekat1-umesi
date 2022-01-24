@@ -23,6 +23,7 @@ export class PostComponent implements OnInit {
   index: number = -1;
   update: boolean = false;
   textToUpdate: string;
+  subscribedToAuthor: boolean = false;
 
   constructor(private postService: PostService, private _Activatedroute:ActivatedRoute, private userService: UserService ) { }
 
@@ -35,7 +36,6 @@ export class PostComponent implements OnInit {
       this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
     })
     this.userService.user.subscribe((user: User) => this.currentUser = user)
-    
   }
 
   loggedIn(): boolean{
@@ -64,6 +64,18 @@ export class PostComponent implements OnInit {
     previous.comments[resp.index] = resp.updatedComment;
     this.post = previous;
     this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+  }
+
+  isOwner(): boolean{
+    return this.post.userRef === localStorage.getItem("username") ? true : false;
+  }
+
+  subscribeToAuthor(){
+    this.userService.subscribeToAuthor(localStorage.getItem("username"), this.post.userRef)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe( resp => {
+      this.subscribedToAuthor = true;
+    })
   }
 
   ngOnDestroy(): void {
