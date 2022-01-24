@@ -13,6 +13,8 @@ namespace UmesiServer.Data.UserRepository
         Task<User> UpdateUser(User user);
         Task DeleteUser(string username);
         Task AddRecipeToFavorites(string username, int recipeId);
+        Task RemoveRecipeFromFavorites(string username, int recipeId);
         Task FollowUser(string currentUser, string userToFollow);
+        Task UnfollowUser(string currentUser, string userToUnfollow);
     }
 }

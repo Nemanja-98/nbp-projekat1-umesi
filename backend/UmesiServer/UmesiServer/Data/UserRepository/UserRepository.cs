@@ -101,16 +101,20 @@ namespace UmesiServer.Data.UserRepository
         {
             if (string.IsNullOrEmpty(username) || recipeId <= 0)
                 throw new HttpResponseException(400, "Bad request");
+
             IDatabase db = _redis.GetDatabase();
             string redisUser = await db.StringGetAsync(username);
             if (string.IsNullOrEmpty(redisUser))
                 throw new HttpResponseException(404, "User does not exist");
+
             User user = JsonSerializer.Deserialize<User>(redisUser);
             Recipe recipe = (await db.ListRangeAsync(ListConsts.RecipeListKey))
                 .Select(rv => JsonSerializer.Deserialize<Recipe>(rv.ToString()))
                 .Where(r => r.Id == recipeId && r.IsDeleted == 0).SingleOrDefault();
+
             if (recipe == null)
                 throw new HttpResponseException(404, "Recipe not found");
+
             await db.ListLeftPushAsync(user.FavoriteRecipesKey, recipeId.ToString());
             await _unitOfWork.NotificationService.AddSubscription(username, recipeId.ToString());
         }
@@ -132,6 +136,31 @@ namespace UmesiServer.Data.UserRepository
             User loggedInUser = JsonSerializer.Deserialize<User>(redisCurUser);
             await db.ListLeftPushAsync(loggedInUser.FollowedUsersKey, userToFollow);
             await _unitOfWork.NotificationService.AddSubscription(currentUser, userToFollow);
+        }
+
+        public async Task RemoveRecipeFromFavorites(string username, int recipeId)
+        {
+            if (string.IsNullOrEmpty(username) || recipeId <= 0)
+                throw new HttpResponseException(400, "Bad request");
+            IDatabase db = _redis.GetDatabase();
+            string redisUser = await db.StringGetAsync(username);
+            if (string.IsNullOrEmpty(redisUser))
+                throw new HttpResponseException(404, "User does not exist");
+            User user = JsonSerializer.Deserialize<User>(redisUser);
+            await db.ListRemoveAsync(user.FavoriteRecipesKey, recipeId.ToString());
+        }
+
+        public async Task UnfollowUser(string currentUser, string userToUnfollow)
+        {
+            if (string.IsNullOrEmpty(currentUser) || string.IsNullOrEmpty(userToUnfollow))
+                throw new HttpResponseException(400, "Data is not valid");
+            IDatabase db = _redis.GetDatabase();
+
+            string redisCurUser = await db.StringGetAsync(currentUser);
+            if (string.IsNullOrEmpty(redisCurUser))
+                throw new HttpResponseException(404, "Current user does not exist");
+            User user = JsonSerializer.Deserialize<User>(redisCurUser);
+            await db.ListRemoveAsync(user.FollowedUsersKey, userToUnfollow);
         }
     }
 }
