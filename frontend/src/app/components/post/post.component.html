@@ -1,15 +1,21 @@
 <mat-card *ngIf="post" [ngClass]="['margins', 'minWidth']">
-    <mat-card-title [ngClass]="['post', 'fontTitle']">{{ post.title }}</mat-card-title>
-    <mat-card-subtitle [ngClass]="'fontLarge'">Autor: {{ post.userRef }} 
+    <mat-card-title [ngClass]="['post', 'fontTitle']">
+        {{ post.title }}
         <div *ngIf="!isOwner()">
-            <button mat-raised-button *ngIf="!subscribedToAuthor" color="primary" (click)="subscribeToAuthor()">Subscribe</button>
-            <button mat-raised-button *ngIf="subscribedToAuthor" color="primary">Unsubscribe</button>
+            <button mat-raised-button color="warn" *ngIf="!favoriteRecipe" [ngClass]="'titleButtons'" (click)="addToFavorites()">Add to favorites</button>
+            <button mat-stroked-button color="warn" *ngIf="favoriteRecipe" [ngClass]="'titleButtons'" (click)="removeFromFavorites()">Remove from favorites</button>
+        </div>
+    </mat-card-title>
+    <mat-card-subtitle [ngClass]="'fontLarge'">Author: {{ post.userRef }} 
+        <div *ngIf="!isOwner()">
+            <button mat-raised-button [ngClass]="'titleButtons'" *ngIf="!subscribedToAuthor" color="warn" (click)="subscribeToAuthor()">Subscribe</button>
+            <button mat-raised-button [ngClass]="['titleButtons', 'unsubscribe']" *ngIf="subscribedToAuthor" (click)="unsubscribeFromAuthor()">Unsubscribe</button>
         </div>
     </mat-card-subtitle>
     <mat-card-content>
         <div [ngClass]="'dipslayRow'">
         <div>
-            <h1 [ngClass]="">Sastojci:</h1>
+            <h1 [ngClass]="">Ingredients:</h1>
             <mat-list role="list">
                 <mat-list-item role="listitem" *ngFor="let ingredient of post.ingredients">
                     <mat-icon mat-list-icon>fiber_manual_record</mat-icon>
@@ -18,7 +24,7 @@
             </mat-list>
         </div>
             <div [ngClass]="'divWidth'">
-                <h1 [ngClass]="">Postupak pripreme</h1>
+                <h1 [ngClass]="">Way of preparation</h1>
                 <p [ngClass]="'paragraph'">{{ post.description}}</p>
             </div>
         </div>

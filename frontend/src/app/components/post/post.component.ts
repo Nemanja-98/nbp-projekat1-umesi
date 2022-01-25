@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-post',
@@ -23,7 +24,8 @@ export class PostComponent implements OnInit {
   index: number = -1;
   update: boolean = false;
   textToUpdate: string;
-  subscribedToAuthor: boolean = false;
+  subscribedToAuthor: boolean;
+  favoriteRecipe: boolean;
 
   constructor(private postService: PostService, private _Activatedroute:ActivatedRoute, private userService: UserService ) { }
 
@@ -34,8 +36,20 @@ export class PostComponent implements OnInit {
     .subscribe((resultPost) => {
       this.post = resultPost;
       this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+      this.userService.getUser(localStorage.getItem("username"))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe( resp2 => {
+        this.currentUser = resp2
+        if(this.currentUser.followedUsers.indexOf(this.post.userRef) !== -1)
+          this.subscribedToAuthor = true
+        else
+          this.subscribedToAuthor = false
+        if(this.currentUser.favoriteRecipes.filter( x => x.id === this.post.id).length !== 0)
+          this.favoriteRecipe = true
+        else
+          this.favoriteRecipe = false
+      })
     })
-    this.userService.user.subscribe((user: User) => this.currentUser = user)
   }
 
   loggedIn(): boolean{
@@ -74,7 +88,35 @@ export class PostComponent implements OnInit {
     this.userService.subscribeToAuthor(localStorage.getItem("username"), this.post.userRef)
     .pipe(takeUntil(this.destroy$))
     .subscribe( resp => {
+      this.currentUser.followedUsers.push(this.post.userRef)
       this.subscribedToAuthor = true;
+    })
+  }
+
+  unsubscribeFromAuthor(){
+   this.userService.unsubscribeFromAuthor(localStorage.getItem("username"), this.post.userRef)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe( resp => {
+      this.currentUser.followedUsers.splice(this.currentUser.followedUsers.indexOf(this.post.userRef), 1);
+      this.subscribedToAuthor = false;
+    }, error => console.log(error))
+  }
+
+  addToFavorites(): void{
+    this.userService.addToFavorites(localStorage.getItem("username"), this.post.id.toString())
+    .pipe(takeUntil(this.destroy$))
+    .subscribe( resp => {
+      this.currentUser.favoriteRecipes.push(this.post)
+      this.favoriteRecipe = true;
+    })
+  }
+
+  removeFromFavorites(): void{
+    this.userService.removeFromFavorites(localStorage.getItem("username"), this.post.id.toString())
+    .pipe(takeUntil(this.destroy$))
+    .subscribe( resp => {
+      this.currentUser.favoriteRecipes = this.currentUser.favoriteRecipes.filter( x=> x.id !== this.post.id)
+      this.favoriteRecipe = false;
     })
   }
 

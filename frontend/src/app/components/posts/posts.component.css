@@ -1,0 +1,9 @@
+.post {
+    display: flex;
+    justify-content: center;
+}
+
+.postsColumn{
+    flex-direction: column;
+    display: flex;
+}

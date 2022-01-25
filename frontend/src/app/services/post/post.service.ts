@@ -60,4 +60,8 @@ export class PostService {
     }});
   }
 
+  getAllRecipes() {
+    const url = `${this.apiUrl}/GetAllRecipes`
+    return this.http.get<Post[]>(url, httpOptions)
+  }
 }

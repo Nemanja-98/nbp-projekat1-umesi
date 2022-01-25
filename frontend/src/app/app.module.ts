@@ -30,6 +30,7 @@ import { CommonModule } from '@angular/common';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ExampleDialogComponent } from './components/example-dialog/example-dialog.component';
+import { PostsComponent } from './components/posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ExampleDialogComponent } from './components/example-dialog/example-dial
     AboutUsComponent,
     AddCommentComponent,
     SearchFilterPipe,
-    ExampleDialogComponent
+    ExampleDialogComponent,
+    PostsComponent
   ],
   imports: [
     HttpClientModule,

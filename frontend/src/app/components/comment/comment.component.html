@@ -8,21 +8,21 @@
         <div class="divCommentButtons">
             <button mat-raised-button [ngClass]="['commentButtons', 'greenButton']" *ngIf="update" (click)="updateComment()">
                 <mat-icon>save</mat-icon>
-                Sačuvaj izmenu
+                Save
             </button>
             <button mat-stroked-button [ngClass]="['commentButtons', 'cancelButton']" *ngIf="update" (click)="update=false">
                 <mat-icon>cancel</mat-icon>
-                Otkaži
+                Cancel
             </button>
         </div>
         <div *ngIf="isOwner()" class="divCommentButtons">
             <button mat-raised-button  [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="!update" (click)="showFormForUpdate()">
                 <mat-icon>edit</mat-icon>
-                Izmeni
+                Edit
             </button>
                 <button mat-stroked-button color="warn" [ngClass]="['commentButtons', 'redButton']" *ngIf="!update" (click)="openDialog()">
                 <mat-icon>delete</mat-icon>
-                Izbriši
+                Delete
             </button>
         </div>
     </mat-card-actions>

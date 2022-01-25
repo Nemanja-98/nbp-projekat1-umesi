@@ -4,5 +4,6 @@
 }
 
 .cancelButton{
-    border: 1px solid black;
+    border: 1px solid #494949;
+    color: #494949;
 }

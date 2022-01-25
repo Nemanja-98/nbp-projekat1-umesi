@@ -36,3 +36,12 @@
     min-width: 300px;
     max-width: 100%;
 }
+
+.titleButtons{
+    margin-top: -7px;
+}
+
+.unsubscribe{
+    background-color: gray;
+    color: white;
+}

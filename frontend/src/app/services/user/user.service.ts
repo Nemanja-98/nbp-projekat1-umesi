@@ -118,5 +118,40 @@ export class UserService {
       'Accept': 'application/json'
     }})
   }
+
+  unsubscribeFromAuthor(username: string, userToFollow: string) {
+    const url = `https://localhost:7084/api/User/UnfollowUser/${username}/${userToFollow}`
+    return this.http.get(url, {headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }})
+  }
  
+  getUser(username: string) {
+    const url = `https://localhost:7084/api/User/GetUser/${username}`
+    return this.http.get<User>(url, {headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }})
+  }
+
+  addToFavorites(username: string, recipeId: string) {
+    const url = `https://localhost:7084/api/User/AddRecipeToFavorites/${username}/${recipeId}`
+    return this.http.get(url, {headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }})
+  }
+
+  removeFromFavorites(username: string, recipeId: string) {
+    const url = `https://localhost:7084/api/User/RemoveRecipeToFavorites/${username}/${recipeId}`
+    return this.http.get(url, {headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }})
+  }
 }
