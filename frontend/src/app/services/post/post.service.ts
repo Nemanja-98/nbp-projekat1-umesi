@@ -7,7 +7,7 @@ const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    'Allow': '*',
+    'Allow': '*'
   })
 }
 @Injectable({
@@ -22,7 +22,14 @@ export class PostService {
 
   getRecipeById(id: string): Observable<Post> {
     const url = `${this.apiUrl}/GetRecipe/${id}`;
-    return this.http.get<Post>(url, httpOptions);
+    return this.http.get<Post>(url, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Allow': '*',
+        'Authorization': localStorage.getItem("token")
+      })
+    });
   }
 
   createNewRecipe(recipeInfo){
@@ -62,6 +69,13 @@ export class PostService {
 
   getAllRecipes() {
     const url = `${this.apiUrl}/GetAllRecipes`
-    return this.http.get<Post[]>(url, httpOptions)
+    const token = localStorage.getItem('token');
+    httpOptions.headers.set('Authorization', token);
+    return this.http.get<Post[]>(url, {headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Allow': '*',
+      'Authorization': token
+    })})
   }
 }

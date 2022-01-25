@@ -27,7 +27,8 @@ export class CommentService {
     return new HttpHeaders({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Accept': '*'
+        'Accept': '*',
+        'Authorization': localStorage.getItem("token")
     })
   }
 

@@ -115,7 +115,8 @@ export class UserService {
     return this.http.get(url, {headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': localStorage.getItem("token")
     }})
   }
 
@@ -124,7 +125,8 @@ export class UserService {
     return this.http.get(url, {headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': localStorage.getItem("token")
     }})
   }
  
@@ -133,7 +135,8 @@ export class UserService {
     return this.http.get<User>(url, {headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': localStorage.getItem("token")
     }})
   }
 
@@ -142,7 +145,8 @@ export class UserService {
     return this.http.get(url, {headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': localStorage.getItem("token")
     }})
   }
 
@@ -151,7 +155,8 @@ export class UserService {
     return this.http.get(url, {headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': localStorage.getItem("token")
     }})
   }
 }
