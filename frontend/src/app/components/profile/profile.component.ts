@@ -120,8 +120,9 @@ export class ProfileComponent implements OnInit {
     
     const id: string = routeParam[0];
     const path :string = this.displayedContentMode.displayMode;
-    
-    this.router.navigate([`/${path}/${id}`]);
+    const postRoutes :string[] = ["post", "favouritePost"];
+    if(postRoutes.includes(path))
+      this.router.navigate([`/post/${id}`]);
   }
 
   getMode(){
