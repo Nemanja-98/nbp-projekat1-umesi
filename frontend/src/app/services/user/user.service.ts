@@ -98,17 +98,18 @@ export class UserService {
     return ["post 1", "post 2", "post 3", "post 4","post 5","post 6","post 7","post 8","post 9","post 10",];
   }
 
-  getFollowedUsers(username : string){
-    //http request here
-
-    return ["getFollowedUsers 1", "getFollowedUsers 2", "getFollowedUsers 3"];
-  }
+  // getFollowedUsers(username : string){
+  //   //http request here
+  //   this.getUser(localStorage.getItem("username"));
+    
+  //   // return ["getFollowedUsers 1", "getFollowedUsers 2", "getFollowedUsers 3"];
+  // }
   
-  getUserFavouritePosts(username : string){
-    //http request here
-
-    return ["favourite post 1", "favourite post 2", "favourite post 3"];
-  }
+  // getUserFavouritePosts(username : string){
+  //   //http request here
+  //   this.getUser(localStorage.getItem("username"));
+  //   // return ["favourite post 1", "favourite post 2", "favourite post 3"];
+  // }
 
   subscribeToAuthor(username: string, userToFollow: string){
     const url = `https://localhost:7084/api/User/FollowUser/${username}/${userToFollow}`

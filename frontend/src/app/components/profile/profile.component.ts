@@ -42,16 +42,26 @@ export class ProfileComponent implements OnInit {
   showFavouritePosts(){
     this.showCreateNewRecipe = false;
     this.displayedContentMode = ContentMode.FavouritePost;
-    this.displayedList = this.userService.getUserFavouritePosts(this.username);
-
+    
+    this.userService.getUser(this.username);
+    this.userService.user.subscribe( (user :User) => {
+      this.displayedList = user.favoriteRecipes.map(( post :Post) => {
+        return `${post.id}.${post.title}`;
+      }); 
+    })
     console.log("content Mode is:", this.displayedContentMode.displayMode);
   }
 
   showFollowedUsers(){
     this.showCreateNewRecipe = false;
     this.displayedContentMode = ContentMode.FollowedUser;
-    this.displayedList = this.userService.getFollowedUsers(this.username);
-
+    
+    this.userService.getUser(this.username);
+    this,this.userService.user.subscribe( (user :User) => {
+      this.displayedList = user.followedUsers.map( (username :string, index :number) =>{
+        return `${index+1}.${username}`;
+      }); 
+    })
     
     console.log("content Mode is:", this.displayedContentMode.displayMode);
   }
