@@ -73,3 +73,8 @@ img{
     list-style: none;
     justify-content: space-evenly;
 }
+
+h3{
+    color: chartreuse;
+    font-size: larger;
+}

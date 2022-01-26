@@ -123,6 +123,7 @@ font-family: "Rajdhani";
     animation-timing-function: ease-in;
     animation-delay: 1.3s;
     animation-fill-mode: forwards;
+
 }
 
 @keyframes zoomIn {
@@ -150,6 +151,7 @@ font-family: "Rajdhani";
 
 .pThread{
     color: rgb(26, 231, 88);
+    cursor: pointer;
 }
 
 .searchContainer{
@@ -164,7 +166,16 @@ font-family: "Rajdhani";
     animation-duration: 1.5s;
     animation-timing-function: ease-in;
     animation-delay: 2.3s;
-    animation-fill-mode: forwards;   
+    animation-fill-mode: forwards;  
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    position: relative;
+    top: 50%;
+    right: 5%;
+
 }
 
 .searchRow{
@@ -175,6 +186,15 @@ font-family: "Rajdhani";
     border-radius: 6px;
     
     border-radius: 15px;
+}
+.divQueryResult{
+    position: relative;
+    background-color: grey;
+    border: 2px solid chartreuse;
+    margin: auto;
+    min-width: 404px;
+    overflow-y: scroll;
+    min-height: 100px;
 }
 
 .inputSearch{

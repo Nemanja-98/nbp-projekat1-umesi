@@ -26,8 +26,9 @@
         </div>
 
         <div class="divProfileContent">
+            <h3 *ngIf="getMode() === 'post'">Click on a post to navigate</h3>
             <ul class="ulContent" *ngIf="!this.showCreateNewRecipe">
-                <li *ngFor="let item of displayedList">{{item}}</li>
+                <li *ngFor="let item of displayedList" (click)="routeToContent($event)">{{item}}</li>
             </ul>
             <div class="ulContentForm" *ngIf="this.showCreateNewRecipe">
 

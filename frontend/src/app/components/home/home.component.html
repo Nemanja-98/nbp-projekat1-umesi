@@ -21,19 +21,29 @@
     </div>
 
     <br class="noviRedIzdvojena" />
-    <div class="divThread">
+    <div class="divThread" *ngIf="this.highlightedPost.title.length > 0" (click)="highlightedPostClicked()">
       <p class="pHightlight">Specijano izdvajamo TOP recept</p>
       <div class="divThread" style="margin: 15px 3px 15px 50px !important;">
-        <p class="pThread">THREAD TITLE HERE</p>
-        <p class="pThread">THREAD IMAGE HERE</p>
+        <p class="pThread">{{highlightedPost.title}}</p>
+        <p class="pThread">{{highlightedPost.author}}</p>
       </div>
     </div>
   </div>
-  <div class="searchContainer">
+  <div class="searchContainer" *ngIf="this.highlightedPost.title.length > 0">
     <div class="searchRow">
       <!-- to do add search filter pipe -->
-      <input class="inputSearch" placeholder="Search..." [(ngModel)]="query" id="listSearch">
+      <input class="inputSearch" placeholder="Search..." [(ngModel)]="query" name="query" id="listSearch">
+      
       <button class="btnSearch">Search</button>
+    </div>
+    <div class="divQueryResult" *ngIf="query.length > 0">
+      <h3 style="color: red; ; width: 30%; margin: auto; padding-top: 10px;" *ngIf="(searchResult | searchFilter:query).length === 0" >No result found</h3>
+      <h3 style="color: chartreuse; ; width: 40%; margin: auto; padding-top: 10px;" *ngIf="(searchResult | searchFilter:query).length !== 0" >Click a post to view</h3>
+      <ul>
+        <li *ngFor="let item of searchResult | searchFilter:query;  let i = index;" (click)="searchResultClicked($event)">
+          {{item.id}}.{{item.title}}
+        </li>
+      </ul>
     </div>
   </div>
 </div>
