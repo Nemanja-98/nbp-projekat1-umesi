@@ -2,27 +2,27 @@
 <div class="mainContainer">
   <div class="textkontejner">
     <div class="textContainer">
-      <h1 class="h1Welcome">Dobrodošli!</h1>
+      <h1 class="h1Welcome">Welcome!</h1>
       <p class="pMessage">
-        Bilo da ste iskusni kuvar,
+        Whether you are an
         <br />
-        pocetnik ili sladokusac
+        experienced chef or just a gourmet
         <br />
-        Mi imamo sve za vas kulinarski arsenal.
+        We have everything for <br> your cooking arsenal.
         <br />
-        Bilo to svecano <br />
-        ili minut-jelo
+        From Classy  to <br />
+        quick and easy.
       </p>
       <div class="divReadMore">
         <a class="aContact" href="#footer">
-          <button class="btnReadMore">Procitaj vise... </button>
+          <button class="btnReadMore">Read more... </button>
         </a>
       </div>
     </div>
 
     <br class="noviRedIzdvojena" />
     <div class="divThread" *ngIf="this.highlightedPost.title.length > 0" (click)="highlightedPostClicked()">
-      <p class="pHightlight">Specijano izdvajamo TOP recept</p>
+      <p class="pHightlight">Specially chosen recipe for you</p>
       <div class="divThread" style="margin: 15px 3px 15px 50px !important;">
         <p class="pThread">{{highlightedPost.title}}</p>
         <p class="pThread">{{highlightedPost.author}}</p>

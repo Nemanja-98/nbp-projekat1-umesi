@@ -80,7 +80,7 @@ export class UserService {
     localStorage.removeItem('token');
     this.userSubject.next(null);
     this.loggedIn = false;
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['/login']);
    }
 
   register(user: User) {

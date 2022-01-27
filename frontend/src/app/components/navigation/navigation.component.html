@@ -4,7 +4,7 @@
             <a [routerLink]="['home']">logo</a>
         </div>
         <div class="divNavigationLinks">
-            <a style="color: #0a58ca;" (click)="randomRecipeClicked()">Random Recipe</a>
+            <a style="color: #0a58ca;" *ngIf="this.userService.loggedIn" (click)="randomRecipeClicked()">Random Recipe</a>
             <a [routerLink]="['posts']">Posts</a>
             <!-- change logic for *ngIf="!this.userService.loggedIn for profile anchor tag -->
             <a [routerLink]="['profile']" *ngIf="this.userService.loggedIn">Profile</a>
