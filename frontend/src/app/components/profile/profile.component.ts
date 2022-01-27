@@ -27,12 +27,13 @@ export class ProfileComponent implements OnInit {
     private userService : UserService,
      private postService :PostService,
      private router :Router) {
-    this.displayedList = this.userService.getUserPosts(this.username);
     
     this.userService.user.subscribe( (user :User) => {
       console.log("nije vise neki username");
-      if(user)
-        this.username = user.username;//localStorage.getItem('username');
+      if(user){
+        this.username = user.username;
+        this.showUserPosts();
+      }
     })
   }
 
@@ -74,7 +75,7 @@ export class ProfileComponent implements OnInit {
     this.postService.userPosts$.subscribe( (posts :Post[]) => {
       if(posts){
         const userPosts: Post[] = posts.filter((post: Post) => post.userRef === this.username); 
-        console.log("userposts", userPosts);
+        console.log("userposts", userPosts, posts, this.username);
         this.displayedList = userPosts.map( (post :Post) => {
          return  `${post.id}.${post.title}`;
         })
@@ -93,7 +94,6 @@ export class ProfileComponent implements OnInit {
   }
 
   createNewPost(){
-    //http request preko post servis-a
     const  ingredients :string[] = this.parseIngredients(this.recipeIngredients);
     const recipeInfo = {
       title: this.recipeTitle,
