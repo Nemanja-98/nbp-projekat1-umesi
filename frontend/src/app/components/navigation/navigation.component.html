@@ -1,7 +1,8 @@
 <div class="divContainer">
     <div class="divRow">
         <div class="divLogo">
-            <a [routerLink]="['home']">logo</a>
+            <a [routerLink]="['home']"><img src="../../../assets/cooking_logo.png"></a>
+            <div class="divLogoTitle">Ko Ume <br> Umesi</div>
         </div>
         <div class="divNavigationLinks">
             <a style="color: #0a58ca;" *ngIf="this.userService.loggedIn" (click)="randomRecipeClicked()">Random Recipe</a>
