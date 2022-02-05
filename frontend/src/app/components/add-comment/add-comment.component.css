@@ -4,7 +4,32 @@
     background-color: green;
     color: white;
     align-self: flex-end;
-    max-width: 160px;
+    width: 160px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.addCommentButton::before,
+.addCommentButton::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.2;
+    transform: rotate(-45deg);
+    transition: all ease 1s;
+}
+
+.addCommentButton:hover::before,
+.addCommentButton:hover::after{
+    left: 100%;
+}
+
+.addCommentButton::after{
+    transition-delay: 0.2s;
 }
 
 .post {

@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { error } from 'protractor';
+import { CommentService } from 'src/app/services/comment/comment.service';
 
 @Component({
   selector: 'app-post',
@@ -27,7 +28,7 @@ export class PostComponent implements OnInit {
   subscribedToAuthor: boolean;
   favoriteRecipe: boolean;
 
-  constructor(private postService: PostService, private _Activatedroute:ActivatedRoute, private userService: UserService ) { }
+  constructor(private postService: PostService, private _Activatedroute:ActivatedRoute, private userService: UserService, private commentService: CommentService ) { }
 
   ngOnInit(): void {
     this.id=this._Activatedroute.snapshot.paramMap.get("id");
@@ -56,27 +57,34 @@ export class PostComponent implements OnInit {
     return localStorage.getItem("username") === this.currentUser.username ? true : false;
   }
 
+  ngOnChanges(){
+
+  }
+
   commentAdded(comment: Comment): void{
-    const previous = this.post;
-    this.post = null;
-    previous.comments.unshift(comment);
-    this.post = previous;
-    this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+    // const previous = this.post;
+    // this.post = null;
+    // previous.comments.unshift(comment);
+    // this.post = previous;
+    this.post.comments.unshift(comment)
+    this.comments.unshift(comment)
   }
 
   commentDeleted(index: number): void {
-    const previous = this.post;
-    this.post = null;
-    previous.comments[index].isDeleted = 1;
-    this.post = previous;
+    // const previous = this.post;
+    // this.post = null;
+    // previous.comments[index].isDeleted = 1;
+    // this.post = previous;
+    this.post.comments[index].isDeleted = 1;
     this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
   }
 
   commentUpdated(resp: any): void{
-    const previous = this.post;
-    this.post = null;
-    previous.comments[resp.index] = resp.updatedComment;
-    this.post = previous;
+    // const previous = this.post;
+    // this.post = null;
+    // previous.comments[resp.index] = resp.updatedComment
+    // this.post = previous;
+    this.post.comments[resp.index] = resp.updatedComment;
     this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
   }
 

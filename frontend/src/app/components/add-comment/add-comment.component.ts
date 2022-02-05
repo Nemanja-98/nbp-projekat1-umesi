@@ -41,7 +41,6 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe( resp => 
     {
-      console.log(this.comment)
       this.commentAdded.emit(this.comment);
       this.value='';
     }, error => console.log(error))

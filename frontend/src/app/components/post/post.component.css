@@ -45,3 +45,8 @@
     background-color: gray;
     color: white;
 }
+
+.scrollableDiv{
+    max-height: 250px;
+    overflow: auto;
+}

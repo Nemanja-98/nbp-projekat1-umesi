@@ -51,4 +51,9 @@ export class CommentService {
       }
     }, {headers: this.returnBaseHttpHeaders()} )
   }
+
+  getCommentsForRecipe(postId: number): Observable<Comment[]>{
+    const url = `${this.apiUrl}GetCommentsForRecipe/${postId}`;
+    return this.http.get<Comment[]>(url, {headers: this.returnBaseHttpHeaders()});
+  }
 }

@@ -51,6 +51,7 @@ export class CommentComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe( resp => {
       this.commentUpdated.emit({updatedComment: resp, index: this.index})
+      this.update = false;
     }, error => console.log("Upalo ovde", error))
   }
 

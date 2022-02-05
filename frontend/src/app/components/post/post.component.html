@@ -14,7 +14,7 @@
     </mat-card-subtitle>
     <mat-card-content>
         <div [ngClass]="'dipslayRow'">
-        <div>
+        <div class="scrollableDiv">
             <h1 [ngClass]="">Ingredients:</h1>
             <mat-list role="list">
                 <mat-list-item role="listitem" *ngFor="let ingredient of post.ingredients">
@@ -23,7 +23,7 @@
                 </mat-list-item>
             </mat-list>
         </div>
-            <div [ngClass]="'divWidth'">
+            <div [ngClass]="['divWidth', 'scrollableDiv']">
                 <h1 [ngClass]="">Way of preparation</h1>
                 <p [ngClass]="'paragraph'">{{ post.description}}</p>
             </div>
