@@ -1,37 +1,45 @@
-<mat-card *ngIf="post" [ngClass]="['margins', 'minWidth']">
-    <mat-card-title [ngClass]="['post', 'fontTitle']">
-        {{ post.title }}
-        <div *ngIf="!isOwner()">
-            <button mat-raised-button color="warn" *ngIf="!favoriteRecipe" [ngClass]="'titleButtons'" (click)="addToFavorites()">Add to favorites</button>
-            <button mat-stroked-button color="warn" *ngIf="favoriteRecipe" [ngClass]="'titleButtons'" (click)="removeFromFavorites()">Remove from favorites</button>
-        </div>
-    </mat-card-title>
-    <mat-card-subtitle [ngClass]="'fontLarge'">Author: {{ post.userRef }} 
-        <div *ngIf="!isOwner()">
-            <button mat-raised-button [ngClass]="'titleButtons'" *ngIf="!subscribedToAuthor" color="warn" (click)="subscribeToAuthor()">Subscribe</button>
-            <button mat-raised-button [ngClass]="['titleButtons', 'unsubscribe']" *ngIf="subscribedToAuthor" (click)="unsubscribeFromAuthor()">Unsubscribe</button>
-        </div>
-    </mat-card-subtitle>
-    <mat-card-content>
-        <div [ngClass]="'dipslayRow'">
-        <div class="scrollableDiv">
-            <h1 [ngClass]="">Ingredients:</h1>
-            <mat-list role="list">
-                <mat-list-item role="listitem" *ngFor="let ingredient of post.ingredients">
-                    <mat-icon mat-list-icon>fiber_manual_record</mat-icon>
-                    {{ ingredient }}
-                </mat-list-item>
-            </mat-list>
-        </div>
-            <div [ngClass]="['divWidth', 'scrollableDiv']">
-                <h1 [ngClass]="">Way of preparation</h1>
-                <p [ngClass]="'paragraph'">{{ post.description}}</p>
+<div *ngIf="!post">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="post">
+    <mat-card [ngClass]="['margins', 'minWidth']">
+        <mat-card-title [ngClass]="['post', 'fontTitle']">
+            {{ post.title }}
+            <div *ngIf="!isOwner()">
+                <button mat-raised-button color="warn" *ngIf="!favoriteRecipe" [ngClass]="'titleButtons'" (click)="addToFavorites()">Add to favorites</button>
+                <button mat-stroked-button color="warn" *ngIf="favoriteRecipe" [ngClass]="'titleButtons'" (click)="removeFromFavorites()">Remove from favorites</button>
             </div>
-        </div>
-        
-    </mat-card-content>
-</mat-card>
-<app-add-comment  (commentAdded)="commentAdded($event)" [post]="post"></app-add-comment>
-<div *ngIf="post && comments.length !== 0">
-    <app-comment *ngFor="let comment of comments" [comment]="comment" [post]="post" (commentDeleted)="commentDeleted($event)" (commentUpdated)="commentUpdated($event)"></app-comment>
+        </mat-card-title>
+        <mat-card-subtitle [ngClass]="'fontLarge'">Author: {{ post.userRef }} 
+            <div *ngIf="!isOwner()">
+                <button mat-raised-button [ngClass]="'titleButtons'" *ngIf="!subscribedToAuthor" color="warn" (click)="subscribeToAuthor()">Subscribe</button>
+                <button mat-raised-button [ngClass]="['titleButtons', 'unsubscribe']" *ngIf="subscribedToAuthor" (click)="unsubscribeFromAuthor()">Unsubscribe</button>
+            </div>
+        </mat-card-subtitle>
+        <mat-card-content>
+            <div [ngClass]="'dipslayRow'">
+                <div>
+                    <h1 [ngClass]="">Ingredients:</h1>
+                    <div class="scrollableDiv">
+                        <mat-list role="list">
+                            <mat-list-item role="listitem" *ngFor="let ingredient of post.ingredients">
+                                <mat-icon mat-list-icon>fiber_manual_record</mat-icon>
+                                {{ ingredient }}
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </div>
+                <div>
+                    <h1>Way of preparation</h1>
+                    <div [ngClass]="['divWidth', 'scrollableDiv']">
+                        <p [ngClass]="'paragraph'">{{ post.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <app-add-comment  (commentAdded)="commentAdded($event)" [post]="post"></app-add-comment>
+    <div *ngIf="post && comments.length !== 0">
+        <app-comment [ngClass]="'margins'" *ngFor="let comment of comments" [comment]="comment" [post]="post" (commentDeleted)="commentDeleted($event)" (commentUpdated)="commentUpdated($event)"></app-comment>
+    </div>
 </div>

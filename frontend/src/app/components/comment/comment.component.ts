@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { error } from 'protractor';
 import { Subject } from 'rxjs';
 import { takeUntil, timeout } from 'rxjs/operators';
@@ -7,6 +7,8 @@ import { Post } from 'src/app/models/post';
 import { CommentService } from 'src/app/services/comment/comment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ExampleDialogComponent } from '../example-dialog/example-dialog.component';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-comment',
@@ -23,12 +25,11 @@ export class CommentComponent implements OnInit {
   private destroy$: Subject<void> = new Subject<void>();
   index: number;
   update: boolean = false;
-
+  @ViewChild('textareaRef') textareaElementRef: ElementRef;
 
   constructor(private CommentService: CommentService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    
   }
 
   deleteComment(): void {
@@ -43,6 +44,9 @@ export class CommentComponent implements OnInit {
   showFormForUpdate() : void{
     this.update = true;
     this.value = this.comment.description;
+    setTimeout(() => {
+      this.textareaElementRef.nativeElement.focus();
+    }, 0)
   }
 
   updateComment(): void {

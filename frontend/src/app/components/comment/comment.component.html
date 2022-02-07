@@ -1,8 +1,8 @@
 <mat-card tabindex="0">
     <mat-card-title>{{ comment.userRef }}</mat-card-title>
     <mat-card-content [ngClass]="'flexHorizontal'">
-            <textarea matInput *ngIf="!update" [(ngModel)]="comment.description" readonly="true" [ngClass]="['fixedHeight', 'fillWidthParent']"></textarea>
-            <textarea matInput *ngIf="update" autofocus [(ngModel)]="value" name="value" [ngClass]="['fixedHeight', 'fillWidthParent']"></textarea>
+        <textarea matInput [hidden]="update" [(ngModel)]="comment.description" readonly [ngClass]="['fixedHeight', 'fillWidthParent']"></textarea>
+        <textarea matInput #textareaRef [hidden]="!update" [(ngModel)]="value" [ngClass]="['fixedHeight', 'fillWidthParent']"></textarea>
     </mat-card-content>
     <mat-card-actions align="end">
         <div class="divCommentButtons">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Comment } from 'src/app/models/comment';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post/post.service';
@@ -17,9 +17,9 @@ import { CommentService } from 'src/app/services/comment/comment.service';
 })
 export class PostComponent implements OnInit {
 
-  post: Post = new Post(1, "Miladin", "Gulas", "Lako se sprema", ["ulje", "jaja", "krompir", "meso"] ,[new Comment("Kika", "Dobro", 0), new Comment("Micko", "Super supica", 0)])
+  post: Post = null;
   id: string = "";
-  comments: Comment[] = this.post.comments;
+  comments: Comment[];
   currentUser: User;
   private destroy$: Subject<void> = new Subject<void>();
   index: number = -1;
@@ -31,61 +31,38 @@ export class PostComponent implements OnInit {
   constructor(private postService: PostService, private _Activatedroute:ActivatedRoute, private userService: UserService, private commentService: CommentService ) { }
 
   ngOnInit(): void {
-    this.id=this._Activatedroute.snapshot.paramMap.get("id");
-    this.postService.getRecipeById(this.id)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((resultPost) => {
-      this.post = resultPost;
-      this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
-      this.userService.getUser(localStorage.getItem("username"))
-      .pipe(takeUntil(this.destroy$))
-      .subscribe( resp2 => {
-        this.currentUser = resp2
-        if(this.currentUser.followedUsers.indexOf(this.post.userRef) !== -1)
-          this.subscribedToAuthor = true
-        else
-          this.subscribedToAuthor = false
-        if(this.currentUser.favoriteRecipes.filter( x => x.id === this.post.id).length !== 0)
-          this.favoriteRecipe = true
-        else
-          this.favoriteRecipe = false
-      })
-    })
+    this.loadRecipe();
   }
 
   loggedIn(): boolean{
     return localStorage.getItem("username") === this.currentUser.username ? true : false;
   }
 
-  ngOnChanges(){
-
-  }
-
   commentAdded(comment: Comment): void{
-    // const previous = this.post;
-    // this.post = null;
-    // previous.comments.unshift(comment);
-    // this.post = previous;
-    this.post.comments.unshift(comment)
-    this.comments.unshift(comment)
+    this.commentService.getCommentsForRecipe(this.post.id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe( response => {
+      this.post.comments = response;
+      this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+    })
   }
 
   commentDeleted(index: number): void {
-    // const previous = this.post;
-    // this.post = null;
-    // previous.comments[index].isDeleted = 1;
-    // this.post = previous;
-    this.post.comments[index].isDeleted = 1;
-    this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+    this.commentService.getCommentsForRecipe(this.post.id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe( response => {
+      this.post.comments = response;
+      this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+    })
   }
 
   commentUpdated(resp: any): void{
-    // const previous = this.post;
-    // this.post = null;
-    // previous.comments[resp.index] = resp.updatedComment
-    // this.post = previous;
-    this.post.comments[resp.index] = resp.updatedComment;
-    this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+    this.commentService.getCommentsForRecipe(this.post.id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe( response => {
+      this.post.comments = response;
+      this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+    })
   }
 
   isOwner(): boolean{
@@ -125,6 +102,29 @@ export class PostComponent implements OnInit {
     .subscribe( resp => {
       this.currentUser.favoriteRecipes = this.currentUser.favoriteRecipes.filter( x=> x.id !== this.post.id)
       this.favoriteRecipe = false;
+    })
+  }
+
+  loadRecipe(): void {
+    this.id=this._Activatedroute.snapshot.paramMap.get("id");
+    this.postService.getRecipeById(this.id)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((resultPost) => {
+      this.post = resultPost;
+      this.comments = this.post.comments.filter(x=> x.isDeleted === 0);
+      this.userService.getUser(localStorage.getItem("username"))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe( resp2 => {
+        this.currentUser = resp2
+        if(this.currentUser.followedUsers.indexOf(this.post.userRef) !== -1)
+          this.subscribedToAuthor = true
+        else
+          this.subscribedToAuthor = false
+        if(this.currentUser.favoriteRecipes.filter( x => x.id === this.post.id).length !== 0)
+          this.favoriteRecipe = true
+        else
+          this.favoriteRecipe = false
+      })
     })
   }
 

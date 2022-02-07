@@ -1,9 +1,14 @@
-.post {
+.posts{
+    height: 78vh;
+    background-image: url("src/assets/postsBackground.jpg");
+    background-size: cover;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
 .postsColumn{
-    flex-direction: column;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
 }

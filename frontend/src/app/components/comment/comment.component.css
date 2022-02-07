@@ -1,7 +1,4 @@
-*{
-    margin-top: 3px;
-    margin-bottom: 3px;
-}
+
 
 .divCommentButtons{
     display: flex;
@@ -42,11 +39,12 @@
     border: 1px solid red;
 }
 
-mat-card{
-    margin: 5px;
-    transition: 3s;
+.smallTextarea{
+    height: 0px;
+    width: 0px;
 }
 
-mat-card-title{
-    margin-bottom: 7px;
+ mat-card{
+    margin-left: 10px;
+    margin-right: 10px;
 }

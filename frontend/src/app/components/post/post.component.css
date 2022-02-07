@@ -11,12 +11,11 @@
 
 .dipslayRow{
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
 }
 
 .divWidth{
-    max-width: 50%;
+    max-width: 50vh;
 }
 
 .fontTitle{
@@ -47,6 +46,11 @@
 }
 
 .scrollableDiv{
-    max-height: 250px;
+    max-height: 25vh;
+    min-height: 25vh;
     overflow: auto;
+}
+
+p{
+    padding: 5px;
 }
