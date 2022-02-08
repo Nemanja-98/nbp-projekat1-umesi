@@ -1,29 +1,31 @@
-<mat-card tabindex="0">
-    <mat-card-title>{{ comment.userRef }}</mat-card-title>
-    <mat-card-content [ngClass]="'flexHorizontal'">
-        <textarea matInput [hidden]="update" [(ngModel)]="comment.description" readonly [ngClass]="['fixedHeight', 'fillWidthParent']"></textarea>
-        <textarea matInput #textareaRef [hidden]="!update" [(ngModel)]="value" [ngClass]="['fixedHeight', 'fillWidthParent']"></textarea>
-    </mat-card-content>
-    <mat-card-actions align="end">
-        <div class="divCommentButtons">
-            <button mat-raised-button [ngClass]="['commentButtons', 'greenButton']" *ngIf="update" (click)="updateComment()">
-                <mat-icon>save</mat-icon>
-                Save
-            </button>
-            <button mat-stroked-button [ngClass]="['commentButtons', 'cancelButton']" *ngIf="update" (click)="update=false">
-                <mat-icon>cancel</mat-icon>
-                Cancel
-            </button>
-        </div>
-        <div *ngIf="isOwner()" class="divCommentButtons">
-            <button mat-raised-button  [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="!update" (click)="showFormForUpdate()">
-                <mat-icon>edit</mat-icon>
-                Edit
-            </button>
-                <button mat-stroked-button color="warn" [ngClass]="['commentButtons', 'redButton']" *ngIf="!update" (click)="openDialog()">
-                <mat-icon>delete</mat-icon>
-                Delete
-            </button>
-        </div>
-    </mat-card-actions>
-</mat-card>
+<div class="divComments">
+    <mat-card tabindex="0">
+        <mat-card-title>{{ comment.userRef }}</mat-card-title>
+        <mat-card-content>
+            <textarea matInput [hidden]="update" [(ngModel)]="comment.description" readonly [ngClass]="['fixedHeight', 'fillWidthParent', 'paragraph']"></textarea>
+            <textarea matInput #textareaRef [hidden]="!update" [(ngModel)]="value" [ngClass]="['fixedHeight', 'fillWidthParent', 'paragraph']"></textarea>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <div class="divCommentButtons">
+                <button mat-raised-button [ngClass]="['commentButtons', 'greenButton']" *ngIf="update" (click)="updateComment()">
+                    <mat-icon>save</mat-icon>
+                    Save
+                </button>
+                <button mat-stroked-button [ngClass]="['commentButtons', 'cancelButton']" *ngIf="update" (click)="update=false">
+                    <mat-icon>cancel</mat-icon>
+                    Cancel
+                </button>
+            </div>
+            <div *ngIf="isOwner()" class="divCommentButtons">
+                <button mat-raised-button  [ngClass]="['commentButtons', 'commentButtonEdit']" *ngIf="!update" (click)="showFormForUpdate()">
+                    <mat-icon>edit</mat-icon>
+                    Edit
+                </button>
+                    <button mat-stroked-button color="warn" [ngClass]="['commentButtons', 'redButton']" *ngIf="!update" (click)="openDialog()">
+                    <mat-icon>delete</mat-icon>
+                    Delete
+                </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

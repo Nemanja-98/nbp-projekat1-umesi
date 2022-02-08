@@ -1,14 +1,17 @@
 .posts{
     height: 78vh;
-    background-image: url("src/assets/postsBackground.jpg");
-    background-size: cover;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .postsColumn{
+    height: 200px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     margin: 10px;
+    background-image: url("src/assets/postsBackground.jpg");
+    background-size: cover;
 }

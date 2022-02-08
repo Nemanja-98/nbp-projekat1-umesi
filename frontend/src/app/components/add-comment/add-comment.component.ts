@@ -15,11 +15,8 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   @Input() post: Post;
   @Input() comment: Comment = new Comment('','',0);
-  @Input() update: boolean;
-  @Input() index: number;
   @Input() value: string = '';
   @Output() commentAdded: EventEmitter<Comment> = new EventEmitter<Comment>();
-  @Output() updateComment4: EventEmitter<any> = new EventEmitter<any>();
   private destroy$: Subject<void> = new Subject<void>();
   
   constructor(private CommentService: CommentService, private UserService: UserService) { }
@@ -28,7 +25,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   }
 
   postComment(): void {
-
+    
     if(this.value === '') {
       alert("Ne mozete postaviti prazan komentar!");
       return;
@@ -41,13 +38,9 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe( resp => 
     {
-      this.commentAdded.emit(this.comment);
+      this.commentAdded.emit();
       this.value='';
     }, error => console.log(error))
-  }
-
-  isLoggedIn(): boolean{
-    return localStorage.getItem("username") ? true : false;
   }
 
   ngOnDestroy(): void {

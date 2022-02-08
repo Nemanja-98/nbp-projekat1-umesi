@@ -1,7 +1,7 @@
-<div *ngIf="!post">
+<div *ngIf="!post" class="centerSpiner">
     <mat-spinner></mat-spinner>
 </div>
-<div *ngIf="post">
+<div *ngIf="post" class="con">
     <mat-card [ngClass]="['margins', 'minWidth']">
         <mat-card-title [ngClass]="['post', 'fontTitle']">
             {{ post.title }}
@@ -17,9 +17,9 @@
             </div>
         </mat-card-subtitle>
         <mat-card-content>
-            <div [ngClass]="'dipslayRow'">
+            <div [ngClass]="'displayRow'">
                 <div>
-                    <h1 [ngClass]="">Ingredients:</h1>
+                    <h1>Ingredients:</h1>
                     <div class="scrollableDiv">
                         <mat-list role="list">
                             <mat-list-item role="listitem" *ngFor="let ingredient of post.ingredients">
@@ -38,8 +38,9 @@
             </div>
         </mat-card-content>
     </mat-card>
-    <app-add-comment  (commentAdded)="commentAdded($event)" [post]="post"></app-add-comment>
+    <app-add-comment  (commentAdded)="updateCommentsForShow()" [post]="post"></app-add-comment>
     <div *ngIf="post && comments.length !== 0">
-        <app-comment [ngClass]="'margins'" *ngFor="let comment of comments" [comment]="comment" [post]="post" (commentDeleted)="commentDeleted($event)" (commentUpdated)="commentUpdated($event)"></app-comment>
+        <app-comment [ngClass]="'margins'" *ngFor="let comment of comments" [comment]="comment" [post]="post" 
+        (commentDeleted)="updateCommentsForShow()" (commentUpdated)="updateCommentsForShow()"></app-comment>
     </div>
 </div>

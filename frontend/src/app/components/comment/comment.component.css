@@ -1,4 +1,23 @@
+.divComments{
+    margin-right: 10px;
+    margin-left: 10px;
+}
 
+.fixedHeight{
+    min-height: 100px;
+    max-height: 100px;
+    border: none;
+}
+
+.fillWidthParent {
+    width: 100%;
+}
+
+.paragraph{
+    text-align: justify;
+    text-justify: auto;
+    padding: 10px;
+}
 
 .divCommentButtons{
     display: flex;
@@ -8,17 +27,6 @@
 .commentButtons{
     display: flex;
     margin-right: 5px;
-}
-
-.commentButtonEdit{
-    background-color: #2196F3;
-    color: white;
-}
-
-.fixedHeight{
-    min-height: 100px;
-    max-height: 100px;
-    border: none;
 }
 
 .greenButton{
@@ -31,20 +39,11 @@
     color: #494949;
 }
 
-.fillWidthParent {
-    width: 100%;
+.commentButtonEdit{
+    background-color: #2196F3;
+    color: white;
 }
 
 .redButton{
     border: 1px solid red;
-}
-
-.smallTextarea{
-    height: 0px;
-    width: 0px;
-}
-
- mat-card{
-    margin-left: 10px;
-    margin-right: 10px;
 }

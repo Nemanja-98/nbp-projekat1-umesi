@@ -1,30 +1,13 @@
-.post {
+.centerSpiner{
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 78vh;
 }
 
-.fontLarge{
-    font-size: large;
-    display: flex;
-    flex-direction: row;
-}
-
-.dipslayRow{
-    display: flex;
-    justify-content: space-between;
-}
-
-.divWidth{
-    max-width: 50vh;
-}
-
-.fontTitle{
-    font-size: 42px;
-}
-
-.paragraph{
-    text-align: justify;
-    text-justify: auto;
+.con{
+    background-image: url("src/assets/loginRegisterBackground.jpg");
+    background-repeat: repeat;
 }
 
 .margins{
@@ -36,13 +19,33 @@
     max-width: 100%;
 }
 
+.post {
+    display: flex;
+    justify-content: center;
+}
+
+.fontTitle{
+    font-size: 42px;
+}
+
 .titleButtons{
     margin-top: -7px;
+}
+
+.fontLarge{
+    font-size: large;
+    display: flex;
+    flex-direction: row;
 }
 
 .unsubscribe{
     background-color: gray;
     color: white;
+}
+
+.displayRow{
+    display: flex;
+    justify-content: space-between;
 }
 
 .scrollableDiv{
@@ -51,6 +54,12 @@
     overflow: auto;
 }
 
-p{
-    padding: 5px;
+.divWidth{
+    max-width: 50vw;
+}
+
+.paragraph{
+    text-align: justify;
+    text-justify: auto;
+    padding: 10px;
 }
