@@ -30,7 +30,7 @@ namespace UmesiServer.Data.CommentRepository
             if (recipe == null)
                 throw new HttpResponseException(404, "Recipe not found");
             List<RedisValue> redisComments = (await db.ListRangeAsync(recipe.CommentListKey)).ToList();
-            if (redisComments.Count > 0)
+            if (redisComments.Count == 0)
                 return new List<Comment>();
             return redisComments.Select(c => JsonSerializer.Deserialize<Comment>(c.ToString())).ToList();
         }
